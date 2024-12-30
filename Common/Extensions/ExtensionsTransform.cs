@@ -149,6 +149,16 @@ namespace LFramework
             transform.localPosition += new Vector3(x, y, z);
         }
 
+        public static void ResetPosition(this Transform transform)
+        {
+            transform.position = Vector3.zero;
+        }
+
+        public static void ResetLocalPosition(this Transform transform)
+        {
+            transform.localPosition = Vector3.zero;
+        }
+
         #endregion
 
         #region Scale
@@ -301,6 +311,16 @@ namespace LFramework
         public static void SetLocalRotationZ(this Transform transform, float angle)
         {
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, angle);
+        }
+
+        public static void ResetRotation(this Transform transform)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+
+        public static void ResetLocalRotation(this Transform transform)
+        {
+            transform.localRotation = Quaternion.identity;
         }
 
         #endregion
