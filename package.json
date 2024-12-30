@@ -1,6 +1,6 @@
 {
-  "name": "lazycoder.framework",
-  "displayName": "l.unity.frameworks",
+  "name": "l.unity.frameworks",
+  "displayName": "LazyCoder Framework",
   "version": "1.1.1",
   "unity": "2022.3",
   "description": "Collection of utility methods, design patterns, and extensions for Unity.",
