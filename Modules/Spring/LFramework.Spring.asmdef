@@ -2,8 +2,8 @@
     "name": "LFramework.Spring",
     "rootNamespace": "LFramework.Spring",
     "references": [
-        "GUID:066eba6989fe3dc4193e5b535868c168",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "LFramework",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

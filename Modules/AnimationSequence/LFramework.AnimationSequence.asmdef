@@ -2,8 +2,8 @@
     "name": "LFramework.AnimationSequence",
     "rootNamespace": "LFramework.AnimationSequence",
     "references": [
-        "GUID:066eba6989fe3dc4193e5b535868c168",
-        "GUID:fa20145557d22bc48b7dfc5db5909c09"
+        "LFramework",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

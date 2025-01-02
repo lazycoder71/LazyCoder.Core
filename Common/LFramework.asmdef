@@ -2,14 +2,14 @@
     "name": "LFramework",
     "rootNamespace": "LFramework",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:fa20145557d22bc48b7dfc5db5909c09",
-        "GUID:fc5af42c14c22f15596a689505bf112c",
-        "GUID:d91d5ec20cf4bd541bb898f67497ca6d",
-        "GUID:9e24947de15b9834991c9d8411ea37cf",
-        "GUID:84651a3751eca9349aac36a66bba901b",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:029c1c1b674aaae47a6841a0b89ad80e"
+        "Unity.TextMeshPro",
+        "DOTween.Modules",
+        "OdinSerializer",
+        "Vertx.Debugging.Runtime",
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "UniTask",
+        "UniTask.DOTween"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

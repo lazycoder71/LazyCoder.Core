@@ -2,9 +2,9 @@
     "name": "LFramework.AppStore",
     "rootNamespace": "LFramework.AppStore",
     "references": [
-        "GUID:4139e191aa32f459e9eb2e331225ad7e",
-        "GUID:b4318b6f3695442c4983c360248781db",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "Google.Play.Review",
+        "Google.Play.Common",
+        "UniTask"
     ],
     "includePlatforms": [
         "Android",
