@@ -327,14 +327,13 @@ namespace LFramework
 
         #region Children
 
-        public static List<Transform> GetChildren(this Transform transform)
+        public static IEnumerable<Transform> GetChildren(this Transform transform)
         {
-            var children = new List<Transform>();
+            Transform[] children = new Transform[transform.childCount];
 
-            for (var i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < children.Length; i++)
             {
-                var child = transform.GetChild(i);
-                children.Add(child);
+                children[i] = transform.GetChild(i);
             }
 
             return children;

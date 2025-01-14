@@ -115,6 +115,12 @@ namespace LFramework.AnimationSequence
             }
         }
 
+        public UpdateType UpdateType { get { return _updateType; } set { _updateType = value; } }
+
+        public ActionOnEnable OnEnableAction { get { return _actionOnEnable; } set { _actionOnEnable = value; } }
+
+        public ActionOnDisable OnDisableAction { get { return _actionOnDisable; } set { _actionOnDisable = value; } }
+
         private void OnDestroy()
         {
             _sequence?.Kill();
