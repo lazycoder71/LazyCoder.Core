@@ -28,6 +28,13 @@ namespace LFramework.Data
         {
             MonoCallback.Instance.EventApplicationPause += MonoCallback_ApplicationOnPause;
             MonoCallback.Instance.EventApplicationQuit += MonoCallback_ApplicationOnQuit;
+            MonoCallback.Instance.EventApplicationFocus += MonoCAllback_EventApplicationFocus;
+        }
+
+        private void MonoCAllback_EventApplicationFocus(bool isFocus)
+        {
+            if (!isFocus)
+                Save();
         }
 
         private void MonoCallback_ApplicationOnQuit()
@@ -39,11 +46,6 @@ namespace LFramework.Data
         {
             if (paused)
                 Save();
-        }
-
-        private void LDataBlockHelper_EventDelete()
-        {
-            s_instance = null;
         }
 
         public static void Save()

@@ -7,7 +7,7 @@ namespace LFramework.Data
 {
     public static class DataHelper
     {
-        static readonly string s_deviceFolderName = "LFramework";
+        private static readonly string s_deviceFolderName = "LFramework";
 
         private static void Log(string message)
         {

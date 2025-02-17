@@ -13,7 +13,7 @@
 
         public static void Vibrate(VibrationType type)
         {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
             VibrationIOS.Vibrate(type);
 #elif UNITY_ANDROID
             VibrationAndroid.Vibrate(type);
@@ -22,7 +22,7 @@
 
         public static bool HasVibrator()
         {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
             return VibrationIOS.HasVibrator();
 #elif UNITY_ANDROID
             return VibrationAndroid.HasVibrator();
