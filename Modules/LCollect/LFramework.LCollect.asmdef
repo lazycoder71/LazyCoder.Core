@@ -4,7 +4,8 @@
     "references": [
         "LFramework",
         "LFramework.Audio",
-        "Vertx.Debugging.Runtime"
+        "Vertx.Debugging.Runtime",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
