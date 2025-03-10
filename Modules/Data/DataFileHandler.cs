@@ -1,22 +1,17 @@
-﻿using OdinSerializer;
+﻿using MemoryPack;
 using System;
 using System.IO;
 using UnityEngine;
 
 namespace LFramework.Data
 {
-    public static class DataHelper
+    public static class DataFileHandler
     {
-        private static readonly string s_deviceFolderName = "LFramework";
-
-        private static void Log(string message)
-        {
-            LDebug.Log(typeof(DataHelper), message);
-        }
+        private static readonly string s_rootFolderName = "LFramework";
 
         private static string GetDevicePath(string filePath)
         {
-            return Path.Combine(Application.persistentDataPath, s_deviceFolderName, filePath);
+            return Path.Combine(Application.persistentDataPath, s_rootFolderName, filePath);
         }
 
         private static string GetProjectPath(string filePath)
@@ -28,7 +23,7 @@ namespace LFramework.Data
         {
             try
             {
-                byte[] bytes = SerializationUtility.SerializeValue(data, DataFormat.Binary);
+                byte[] bytes = MemoryPackSerializer.Serialize<T>(data);
 
                 // Create folder if needed
                 {
@@ -42,7 +37,7 @@ namespace LFramework.Data
             }
             catch (Exception e)
             {
-                Log($"Save failed: {e}");
+                LDebug.Log(typeof(DataFileHandler), $"Save failed: {e}");
             }
         }
 
@@ -52,17 +47,17 @@ namespace LFramework.Data
             {
                 if (!File.Exists(filePath))
                 {
-                    Log($"Can't load, file {filePath} does not exist! creating new file");
+                    LDebug.Log(typeof(DataFileHandler), $"Can't load, file {filePath} does not exist! creating new file");
                     return null;
                 }
 
                 byte[] bytes = File.ReadAllBytes(filePath);
 
-                return SerializationUtility.DeserializeValue<T>(bytes, DataFormat.Binary);
+                return MemoryPackSerializer.Deserialize<T>(bytes);
             }
             catch (Exception e)
             {
-                Log($"Load failed: {e}");
+                LDebug.Log(typeof(DataFileHandler), $"Load failed: {e}");
 
                 return null;
             }
@@ -74,7 +69,7 @@ namespace LFramework.Data
             {
                 if (!File.Exists(filePath))
                 {
-                    Log($"Can't delete, file {filePath} does not exist!");
+                    LDebug.Log(typeof(DataFileHandler), $"Can't delete, file {filePath} does not exist!");
                     return;
                 }
 
@@ -82,7 +77,7 @@ namespace LFramework.Data
             }
             catch (Exception e)
             {
-                Log($"Delete failed: {e}");
+                LDebug.Log(typeof(DataFileHandler), $"Delete failed: {e}");
             }
         }
 
@@ -90,11 +85,11 @@ namespace LFramework.Data
         {
             try
             {
-                return SerializationUtility.DeserializeValue<T>(textAsset.bytes, DataFormat.Binary);
+                return MemoryPackSerializer.Deserialize<T>(textAsset.bytes);
             }
             catch (Exception e)
             {
-                Log($"Load failed: {e}");
+                LDebug.Log(typeof(DataFileHandler), $"Load failed: {e}");
 
                 return null;
             }
@@ -132,7 +127,7 @@ namespace LFramework.Data
 
         public static void DeleteAllInDevice()
         {
-            string path = Path.Combine(Application.persistentDataPath, s_deviceFolderName);
+            string path = Path.Combine(Application.persistentDataPath, s_rootFolderName);
 
             var info = new DirectoryInfo(path);
 

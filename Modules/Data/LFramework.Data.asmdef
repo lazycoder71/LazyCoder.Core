@@ -2,8 +2,7 @@
     "name": "LFramework.Data",
     "rootNamespace": "LFramework.Data",
     "references": [
-        "LFramework",
-        "OdinSerializer"
+        "LFramework"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

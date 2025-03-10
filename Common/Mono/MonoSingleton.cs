@@ -34,7 +34,7 @@ namespace LFramework
 
                 if (s_instance == null)
                 {
-                    s_instance = FindObjectOfType(typeof(T)) as T;
+                    s_instance = FindAnyObjectByType(typeof(T)) as T;
                     if (s_instance == null)
                         Instantiate();
                 }

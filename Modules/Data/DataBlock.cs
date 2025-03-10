@@ -2,9 +2,10 @@
 
 namespace LFramework.Data
 {
+    [System.Serializable]
     public class DataBlock<T> where T : DataBlock<T>
     {
-        static T s_instance;
+        private static T s_instance;
 
         public static T Instance
         {
@@ -12,7 +13,7 @@ namespace LFramework.Data
             {
                 if (s_instance == null)
                 {
-                    s_instance = DataHelper.LoadFromDevice<T>(typeof(T).ToString());
+                    s_instance = DataFileHandler.LoadFromDevice<T>(typeof(T).ToString());
 
                     if (s_instance == null)
                         s_instance = (T)Activator.CreateInstance(typeof(T));
@@ -50,14 +51,14 @@ namespace LFramework.Data
 
         public static void Save()
         {
-            DataHelper.SaveToDevice(Instance, typeof(T).ToString());
+            DataFileHandler.SaveToDevice(Instance, typeof(T).ToString());
         }
 
         public static void Delete()
         {
             s_instance = null;
 
-            DataHelper.DeleteInDevice(typeof(T).ToString());
+            DataFileHandler.DeleteInDevice(typeof(T).ToString());
         }
     }
 }
