@@ -48,10 +48,10 @@ namespace LFramework
             return array[UnityEngine.Random.Range(0, array.Length)];
         }
 
-        public static T GetTry<T>(this T[] array, int index) where T : class
+        public static T GetSafe<T>(this T[] array, int index)
         {
             if (index < 0 || index >= array.Length)
-                return null;
+                return default;
 
             return array[index];
         }
@@ -73,7 +73,7 @@ namespace LFramework
             return newArray;
         }
 
-        public static void SwapElements<T>(this T[] data, int index0, int index1)
+        public static void Swap<T>(this T[] data, int index0, int index1)
         {
             T t = data[index0];
             data[index0] = data[index1];

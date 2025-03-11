@@ -99,9 +99,9 @@ namespace LFramework
             return Object.Instantiate(gameObject, parent, worldPositionStays);
         }
 
-        public static T Create<T>(this T gameObject, Vector3 position, Quaternion rotation) where T : Object
+        public static T Create<T>(this T gameObject, Vector3 position, Quaternion? rotation = null) where T : Object
         {
-            return Object.Instantiate(gameObject, position, rotation);
+            return Object.Instantiate(gameObject, position, rotation.GetValueOrDefault(Quaternion.identity));
         }
 
         public static T Create<T>(this T gameObject, Vector3 position, Quaternion rotation, Transform parent) where T : Object

@@ -21,6 +21,10 @@ namespace LFramework.AnimationSequence
 
             if (_changeStartValue)
                 tween.ChangeStartValue(_relative ? owner.localEulerAngles + _valueStart : _valueStart);
+            else
+                tween.ChangeStartValue(owner.localEulerAngles);
+
+            owner.localEulerAngles = _relative ? owner.localEulerAngles + _value : _value;
 
             return tween;
         }

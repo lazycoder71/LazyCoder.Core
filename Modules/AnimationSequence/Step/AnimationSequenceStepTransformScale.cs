@@ -17,6 +17,10 @@ namespace LFramework.AnimationSequence
 
             if (_changeStartValue)
                 tween.ChangeStartValue(_relative ? owner.localScale + _valueStart : _valueStart);
+            else 
+                tween.ChangeStartValue(owner.localScale);
+
+            owner.localScale = _relative ? owner.localScale + _value : _value;
 
             return tween;
         }

@@ -8,6 +8,8 @@ namespace LFramework
 
         private Transform _transform;
 
+        private bool _isStarted = false;
+
         public Transform TransformCached
         {
             get
@@ -32,9 +34,11 @@ namespace LFramework
 
         protected virtual void OnEnable()
         {
-            MonoCallback.Instance.EventUpdate += Tick;
-            MonoCallback.Instance.EventLateUpdate += LateTick;
-            MonoCallback.Instance.EventFixedUpdate += FixedTick;
+            // Prevents tick functions called before "Start"
+            if (!_isStarted)
+                return;
+
+            RegisterTick();
         }
 
         protected virtual void OnDisable()
@@ -42,6 +46,25 @@ namespace LFramework
             if (MonoCallback.IsDestroyed)
                 return;
 
+            UnregisterTick();
+        }
+
+        protected virtual void Start()
+        {
+            _isStarted = true;
+
+            RegisterTick();
+        }
+
+        private void RegisterTick()
+        {
+            MonoCallback.Instance.EventUpdate += Tick;
+            MonoCallback.Instance.EventLateUpdate += LateTick;
+            MonoCallback.Instance.EventFixedUpdate += FixedTick;
+        }
+
+        private void UnregisterTick()
+        {
             MonoCallback.Instance.EventUpdate -= Tick;
             MonoCallback.Instance.EventLateUpdate -= LateTick;
             MonoCallback.Instance.EventFixedUpdate -= FixedTick;

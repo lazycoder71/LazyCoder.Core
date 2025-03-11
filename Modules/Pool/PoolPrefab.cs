@@ -7,8 +7,8 @@ namespace LFramework.Pool
     {
         public PoolPrefab(GameObject prefab) : base(
             () => { return Object.Instantiate(prefab); },
-            (obj) => { obj.SetActive(true); },
-            (obj) => { obj.SetActive(false); },
+            (obj) => { if (obj != null) obj.SetActive(true); },
+            (obj) => { if (obj != null) obj.SetActive(false); },
             (obj) => { },
 #if UNITY_EDITOR
             true) // Keep heavy check on editor
