@@ -4,7 +4,7 @@ namespace LFramework.ScriptableObjects
 {
     public abstract class ScriptableObjectSingleton<T> : ScriptableObject where T : ScriptableObject
     {
-        public static string s_rootFolderName { get { return "SOS"; } }
+        private static readonly string s_rootFolderName = "ScriptableObjectSingleton";
 
         private static T s_instance = null;
 

@@ -1,12 +1,12 @@
-﻿using System;
-using UnityEngine;
+using MemoryPack;
+using System;
 
-namespace LFramework
+namespace LFramework.Data
 {
-    [Serializable]
-    public class LValue<T>
+    [MemoryPackable]
+    public partial class DataValue<T>
     {
-        [SerializeField] private T _value;
+        [MemoryPackInclude] private T _value;
 
         public T Value
         {
@@ -24,9 +24,9 @@ namespace LFramework
 
         public event Action<T> EventValueChanged;
 
-        public LValue(T defaultValue)
+        public DataValue(T _value)
         {
-            _value = defaultValue;
+            this._value = _value;
         }
     }
 }
