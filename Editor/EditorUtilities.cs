@@ -4,19 +4,22 @@ using UnityEditor;
 using UnityEngine.Networking;
 using System;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 namespace LFramework.Editor
 {
     public static class EditorUtilities
     {
+        #region Data
+
         [MenuItem("LFramework/Data/Clear PlayerPrefs", false)]
-        public static void ClearPlayerPrefs()
+        private static void ClearPlayerPrefs()
         {
             PlayerPrefs.DeleteAll();
         }
 
         [MenuItem("LFramework/Data/Clear Game Data", false)]
-        public static void ClearGameData()
+        private static void ClearGameData()
         {
             DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
 
@@ -32,14 +35,14 @@ namespace LFramework.Editor
         }
 
         [MenuItem("LFramework/Data/Clear Caching", false)]
-        public static void ClearCache()
+        private static void ClearCache()
         {
             Caching.ClearCache();
             Debug.Log("Caching cleared!");
         }
 
         [MenuItem("LFramework/Data/Clear All", false)]
-        public static void ClearAll()
+        private static void ClearAll()
         {
             ClearPlayerPrefs();
             ClearGameData();
@@ -47,13 +50,20 @@ namespace LFramework.Editor
         }
 
         [MenuItem("LFramework/Data/Open GameData Directory", false)]
-        public static void OpenGameData()
+        private static void OpenGameData()
         {
             EditorFileBrowser.OpenDirectory(Application.persistentDataPath);
         }
 
-        [MenuItem("LFramework/Pause or Resume _F2", false)]
-        static void Pause()
+        #endregion
+
+        #region Game
+
+        private static readonly float s_slowTimeScale = 0.1f;
+        private static bool s_slowed = false;
+
+        [MenuItem("LFramework/Game/Pause or Resume _F2", false)]
+        private static void Pause()
         {
             if (!Application.isPlaying)
                 return;
@@ -68,11 +78,8 @@ namespace LFramework.Editor
             }
         }
 
-        private static readonly float s_slowTimeScale = 0.1f;
-        private static bool s_slowed = false;
-
-        [MenuItem("LFramework/Slow or Resume _F3", false)]
-        static void Slow()
+        [MenuItem("LFramework/Game/Slow or Resume _F3", false)]
+        private static void Slow()
         {
             if (!Application.isPlaying)
                 return;
@@ -87,6 +94,31 @@ namespace LFramework.Editor
                 s_slowed = true;
                 Time.timeScale = s_slowTimeScale;
             }
+        }
+
+        [MenuItem("LFramework/Game/Reload scene _F5", false)]
+        private static void ReloadScene()
+        {
+            if (!Application.isPlaying)
+                return;
+
+            // Reload scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        #endregion
+
+        [MenuItem("LFramework/Capture Screenshot %_print", false)]
+        private static void CaptureScreenshot()
+        {
+            var currentTime = DateTime.Now;
+            var filename = currentTime.ToString().Replace('/', '-').Replace(':', '_') + ".png";
+            var path = "Assets/" + filename;
+
+            ScreenCapture.CaptureScreenshot(path);
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         [InitializeOnLoad]
