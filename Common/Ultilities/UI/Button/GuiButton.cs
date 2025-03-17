@@ -2,7 +2,7 @@
 
 namespace LFramework
 {
-    public class UIButtonBase : MonoBase
+    public class GuiButton : MonoBase
     {
         private Button _button;
 

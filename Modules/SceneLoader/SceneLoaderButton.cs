@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LFramework.SceneLoader
 {
-    public class SceneLoaderButton : UIButtonBase
+    public class SceneLoaderButton : GuiButton
     {
         [System.Serializable]
         private enum Behaviour

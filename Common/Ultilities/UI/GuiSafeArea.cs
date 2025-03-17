@@ -10,29 +10,29 @@ namespace LFramework
     ///      This will allow the background image to stretch to the full extents of the screen behind the notch, which looks nicer.
     ///  (3) For other cases that use a mixture of full horizontal and vertical background stripes, use the Conform X & Y controls on separate elements as needed.
     /// </summary>
-    public class UISafeArea : MonoBehaviour
+    public class GuiSafeArea : MonoBehaviour
     {
         [Title("Config")]
-        [SerializeField] bool _conformX = true;  // Conform to screen safe area on X-axis (default true, disable to ignore)
-        [SerializeField] bool _conformY = true;  // Conform to screen safe area on Y-axis (default true, disable to ignore)
+        [SerializeField] private bool _conformX = true;  // Conform to screen safe area on X-axis (default true, disable to ignore)
+        [SerializeField] private bool _conformY = true;  // Conform to screen safe area on Y-axis (default true, disable to ignore)
 
         [Space]
 
-        [SerializeField] bool _refreshOnUpdate = false;
+        [SerializeField] private bool _refreshOnUpdate = false;
 
         [Space]
 
-        [SerializeField] bool _logging = false;  // Conform to screen safe area on Y-axis (default true, disable to ignore)
+        [SerializeField] private bool _logging = false;  // Conform to screen safe area on Y-axis (default true, disable to ignore)
 
-        RectTransform _rectTransform;
+        private RectTransform _rectTransform;
 
-        Rect _lastSafeArea = new Rect(0, 0, 0, 0);
+        private Rect _lastSafeArea = new Rect(0, 0, 0, 0);
 
-        Vector2Int _lastScreenSize = new Vector2Int(0, 0);
+        private Vector2Int _lastScreenSize = new Vector2Int(0, 0);
 
-        ScreenOrientation _lastOrientation = ScreenOrientation.AutoRotation;
+        private ScreenOrientation _lastOrientation = ScreenOrientation.AutoRotation;
 
-        RectTransform rectTransform
+        public RectTransform RectTransform
         {
             get
             {
@@ -43,7 +43,7 @@ namespace LFramework
             }
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             Refresh();
         }
@@ -54,7 +54,7 @@ namespace LFramework
                 Refresh();
         }
 
-        void Refresh()
+        private void Refresh()
         {
             Rect safeArea = Screen.safeArea;
 
@@ -73,7 +73,7 @@ namespace LFramework
             }
         }
 
-        void ApplySafeArea(Rect r)
+        private void ApplySafeArea(Rect r)
         {
             _lastSafeArea = r;
 
@@ -106,14 +106,14 @@ namespace LFramework
                 // See https://forum.unity.com/threads/569236/page-2#post-6199352
                 if (anchorMin.x >= 0 && anchorMin.y >= 0 && anchorMax.x >= 0 && anchorMax.y >= 0)
                 {
-                    rectTransform.anchorMin = anchorMin;
-                    rectTransform.anchorMax = anchorMax;
+                    RectTransform.anchorMin = anchorMin;
+                    RectTransform.anchorMax = anchorMax;
                 }
             }
 
             if (_logging)
             {
-                LDebug.Log<UISafeArea>($"New safe area applied to {name}: x={r.x}, y={r.y}, w={r.width}, h={r.height} on full extents w={Screen.width}, h={Screen.height}");
+                LDebug.Log<GuiSafeArea>($"New safe area applied to {name}: x={r.x}, y={r.y}, w={r.width}, h={r.height} on full extents w={Screen.width}, h={Screen.height}");
             }
         }
     }

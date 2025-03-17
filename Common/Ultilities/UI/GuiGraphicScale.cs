@@ -5,15 +5,18 @@ using Sirenix.OdinInspector;
 
 namespace LFramework
 {
-    public class UIGraphicScale : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
+    public class GuiGraphicScale : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
     {
         [Title("Reference")]
-        [SerializeField] Transform _tfTarget;
+        [SerializeField] private Transform _target;
 
         [Title("Config")]
-        [SerializeField] Vector2 _scaleValue = new Vector2(1f, 0.9f);
+        [SerializeField] private Vector2 _scaleValue = new Vector2(1f, 0.9f);
+
         [Min(0.1f)]
-        [SerializeField] float _scaleSpeed = 1f;
+        [SerializeField] private float _scaleDuration = 0.1f;
+
+        [SerializeField] private Ease _scaleEase = Ease.Linear;
 
         private bool _isDown = false;
 
@@ -23,8 +26,8 @@ namespace LFramework
 
         private void Awake()
         {
-            if (_tfTarget == null)
-                _tfTarget = transform;
+            if (_target == null)
+                _target = transform;
         }
 
         private void OnDestroy()
@@ -41,32 +44,31 @@ namespace LFramework
 
         #endregion
 
-        #region Play Tween
+        #region Function -> Private
 
-        void InitTween()
+        private void InitTween()
         {
             if (_tween != null)
                 return;
 
-            float duration = Mathf.Abs(_scaleValue.x - _scaleValue.y) / _scaleSpeed;
-
-            _tween = _tfTarget.DOScale(_scaleValue.y, duration)
-                              .ChangeStartValue(Vector3.one * _scaleValue.x)
-                              .SetAutoKill(false)
-                              .SetUpdate(true);
+            _tween = _target.DOScale(_scaleValue.y, _scaleDuration)
+                            .ChangeStartValue(Vector3.one * _scaleValue.x)
+                            .SetEase(_scaleEase)
+                            .SetAutoKill(false)
+                            .SetUpdate(true);
 
             _tween.Restart();
             _tween.Pause();
         }
 
-        void ScaleUp()
+        private void ScaleUp()
         {
             InitTween();
 
             _tween.PlayForward();
         }
 
-        void ScaleDown()
+        private void ScaleDown()
         {
             InitTween();
 
@@ -75,7 +77,7 @@ namespace LFramework
 
         #endregion
 
-        #region Pointer events
+        #region IPointer interfaces implement
 
         void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
         {

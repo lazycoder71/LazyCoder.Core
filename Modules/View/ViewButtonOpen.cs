@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 
 namespace LFramework.View
 {
-    public class ViewButtonOpen : UIButtonBase
+    public class ViewButtonOpen : GuiButton
     {
         [HideInInspector]
         [SerializeField] protected bool _useAddressable;
