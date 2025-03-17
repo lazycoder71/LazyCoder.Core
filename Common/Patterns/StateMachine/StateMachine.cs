@@ -235,14 +235,14 @@ namespace LFramework
 
             currentState.onStart?.Invoke();
 
-            OnStateChanged?.Invoke();
+            EventStateChanged?.Invoke();
         }
 
         #endregion
 
         #region Callback Events
 
-        public event Action OnStateChanged;
+        public event Action EventStateChanged;
 
         #endregion
     }
