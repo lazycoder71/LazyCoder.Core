@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LFramework.SceneLoader
 {
-    public class SceneLoaderSOS : ScriptableObjectSingleton<SceneLoaderSOS>
+    public class SceneLoaderSos : ScriptableObjectSingleton<SceneLoaderSos>
     {
         [SerializeField] private GameObject _prefab;
 

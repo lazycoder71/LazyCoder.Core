@@ -130,7 +130,7 @@ namespace LFramework.SceneLoader
             if (_isInitialized)
                 return;
 
-            SceneLoaderSOS.Prefab.Create();
+            SceneLoaderSos.Prefab.Create();
 
             _isInitialized = true;
         }
