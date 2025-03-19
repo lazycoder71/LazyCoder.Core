@@ -1,5 +1,4 @@
-﻿using MemoryPack;
-using System;
+﻿using System;
 using System.IO;
 using UnityEngine;
 
@@ -23,7 +22,7 @@ namespace LFramework.Data
         {
             try
             {
-                byte[] bytes = MemoryPackSerializer.Serialize<T>(data);
+                byte[] bytes = DataSerializer.Serialize<T>(data);
 
                 // Create folder if needed
                 {
@@ -53,7 +52,7 @@ namespace LFramework.Data
 
                 byte[] bytes = File.ReadAllBytes(filePath);
 
-                return MemoryPackSerializer.Deserialize<T>(bytes);
+                return DataSerializer.Deserialize<T>(bytes);
             }
             catch (Exception e)
             {
@@ -85,7 +84,7 @@ namespace LFramework.Data
         {
             try
             {
-                return MemoryPackSerializer.Deserialize<T>(textAsset.bytes);
+                return DataSerializer.Deserialize<T>(textAsset.bytes);
             }
             catch (Exception e)
             {
