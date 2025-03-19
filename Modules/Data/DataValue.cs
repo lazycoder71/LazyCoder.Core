@@ -1,12 +1,17 @@
-using MemoryPack;
 using System;
+using UnityEngine;
 
 namespace LFramework.Data
 {
-    [MemoryPackable]
+#if LFRAMEWORK_MEMORYPACK
+    [MemoryPack.MemoryPackable]
+#endif
     public partial class DataValue<T>
     {
-        [MemoryPackInclude] private T _value;
+#if LFRAMEWORK_MEMORYPACK
+        [MemoryPack.MemoryPackInclude]
+#endif
+        [SerializeField] private T _value;
 
         public T Value
         {
