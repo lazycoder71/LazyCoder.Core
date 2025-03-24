@@ -131,7 +131,7 @@ namespace LFramework.LifetimeBinding
 
             void OnRelease()
             {
-                self.ReleaseAsset();
+                self.ReleaseInstance(lifetimeBinding.gameObject);
 
                 lifetimeBinding.EventRelease -= OnRelease;
             }
