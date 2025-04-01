@@ -9,7 +9,7 @@ namespace LFramework.AnimationSequence
         [VerticalGroup("Value")]
         [SerializeField] private bool _snapping = false;
 
-        public override string DisplayName { get { return $"{(_isSelf ? "Transform (This)" : _owner.name)}: DOLocalMove"; } }
+        public override string DisplayName { get { return $"{(_isSelf || _owner == null ? "Transform (This)" : _owner.name)}: DOLocalMove"; } }
 
         protected override Tween GetTween(AnimationSequence animationSequence)
         {

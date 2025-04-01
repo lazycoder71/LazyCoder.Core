@@ -9,7 +9,7 @@ namespace LFramework.AnimationSequence
         [VerticalGroup("Value")]
         [SerializeField] private RotateMode _rotateMode = RotateMode.Fast;
 
-        public override string DisplayName { get { return $"{(_isSelf ? "Transform (This)" : _owner.name)}: DOLocalRotate"; } }
+        public override string DisplayName { get { return $"{(_isSelf || _owner == null ? "Transform (This)" : _owner.name)}: DOLocalRotate"; } }
 
         protected override Tween GetTween(AnimationSequence animationSequence)
         {

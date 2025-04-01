@@ -5,7 +5,7 @@ namespace LFramework.AnimationSequence
 {
     public class AnimationSequenceStepTransformScale : AnimationSequenceStepTransform
     {
-        public override string DisplayName { get { return $"{(_isSelf ? "Transform (This)" : _owner.name)}: DOScale"; } }
+        public override string DisplayName { get { return $"{(_isSelf || _owner == null ? "Transform (This)" : _owner.name)}: DOScale"; } }
 
         protected override Tween GetTween(AnimationSequence animationSequence)
         {
@@ -17,7 +17,7 @@ namespace LFramework.AnimationSequence
 
             if (_changeStartValue)
                 tween.ChangeStartValue(_relative ? owner.localScale + _valueStart : _valueStart);
-            else 
+            else
                 tween.ChangeStartValue(owner.localScale);
 
             owner.localScale = _relative ? owner.localScale + _value : _value;

@@ -5,7 +5,7 @@ namespace LFramework.AnimationSequence
 {
     public class AnimationSequenceStepRectTransformAnchorPos : AnimationSequenceStepRectTransform
     {
-        public override string DisplayName { get { return $"{(_isSelf ? "RectTransform (This)" : _owner.name)}: DOAnchorPos"; } }
+        public override string DisplayName { get { return $"{((_isSelf || _owner == null) ? "RectTransform (This)" : _owner.name)}: DOAnchorPos"; } }
 
         protected override Tween GetTween(AnimationSequence animationSequence)
         {
