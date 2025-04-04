@@ -11,6 +11,10 @@ namespace LFramework.View
         [Title("Config")]
         [SerializeField] private bool _closeOnClick = true;
         [SerializeField] private Sprite _sprite;
+        [ShowIf("@_sprite")]
+        [SerializeField] private Image.Type _imageType = Image.Type.Simple;
+        [ShowIf("@_sprite")]
+        [SerializeField] private float _pixelsPerUnitMultiplier = 1f;
         [SerializeField] private Color _color = new Color(0f, 0f, 0f, 0.8f);
 
         private GameObject _objBG;
@@ -28,7 +32,13 @@ namespace LFramework.View
             // Return background fade tween
             Image image = _objBG.GetComponent<Image>();
             image.color = _color;
-            image.sprite = _sprite;
+
+            if (_sprite != null)
+            {
+                image.sprite = _sprite;
+                image.type = _imageType;
+                image.pixelsPerUnitMultiplier = _pixelsPerUnitMultiplier;
+            }
 
             return image.DOFade(_color.a, duration)
                         .ChangeStartValue(new Color(_color.r, _color.g, _color.b, 0.0f))
