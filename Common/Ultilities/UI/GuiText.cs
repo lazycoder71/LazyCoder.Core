@@ -4,7 +4,7 @@ using UnityEngine;
 namespace LFramework
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
-    public class GuiText : MonoBehaviour
+    public class GuiText : MonoBase
     {
         private TextMeshProUGUI _text;
 

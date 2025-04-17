@@ -56,23 +56,6 @@ namespace LFramework
             return array[index];
         }
 
-        public static T[] Resize<T>(this T[] array, int size, T defaultValue = default(T))
-        {
-            if (array.Length == size)
-                return array;
-
-            T[] newArray = new T[size];
-            for (int i = 0; i < newArray.Length; i++)
-            {
-                if (i >= array.Length)
-                    newArray[i] = defaultValue;
-                else
-                    newArray[i] = array[i];
-            }
-
-            return newArray;
-        }
-
         public static void Swap<T>(this T[] data, int index0, int index1)
         {
             T t = data[index0];
