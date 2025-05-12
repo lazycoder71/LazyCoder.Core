@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LFramework
 {
-    public class LCollectStepAction : LCollectStep
+    public abstract class LCollectStepAction : LCollectStep
     {
         [SerializeField]
         [HorizontalGroup("AddType")]
@@ -37,8 +37,6 @@ namespace LFramework
         [ShowIf("@_loopTime != 0"), HorizontalGroup("Loop"), LabelWidth(75)]
         private LoopType _loopType = LoopType.Restart;
 
-        public override string DisplayName { get { return this.ToString(); } }
-
         public override void Apply(LCollectItem item)
         {
             Tween tween = GetTween(item);
@@ -50,13 +48,13 @@ namespace LFramework
             switch (_addType)
             {
                 case AddType.Append:
-                    item.sequence.Append(tween);
+                    item.Sequence.Append(tween);
                     break;
                 case AddType.Join:
-                    item.sequence.Join(tween);
+                    item.Sequence.Join(tween);
                     break;
                 case AddType.Insert:
-                    item.sequence.Insert(_insertTime, tween);
+                    item.Sequence.Insert(_insertTime, tween);
                     break;
             }
         }

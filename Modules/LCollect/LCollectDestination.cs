@@ -7,21 +7,21 @@ namespace LFramework
     public class LCollectDestination : MonoBase
     {
         [Title("Reference")]
-        [SerializeField] Transform _target;
+        [SerializeField] private Transform _target;
 
         [Title("Config")]
-        [SerializeField] LCollectConfig _config;
+        [SerializeField] private LCollectConfig _config;
 
-        public event Action<int> eventReturnBegin;
-        public event Action<float> eventReturn;
-        public event Action eventReturnEnd;
+        public event Action<int, int> EventCollectBegin;
+        public event Action<float> EventCollect;
+        public event Action EventCollectEnd;
 
         int _returnExpect;
         int _returnCount;
 
-        public LCollectConfig config { get { return _config; } }
+        public LCollectConfig Config { get { return _config; } }
 
-        public Vector3 position { get { return _target == null ? TransformCached.position : _target.position; } }
+        public Vector3 Position { get { return _target == null ? TransformCached.position : _target.position; } }
 
         protected override void OnEnable()
         {
@@ -37,14 +37,14 @@ namespace LFramework
             LCollectDestinationHelper.Pop(this);
         }
 
-        public void ReturnBegin(int valueCount, int spawnCount)
+        public void CollectBegin(int valueCount, int spawnCount)
         {
             _returnExpect += spawnCount;
 
-            eventReturnBegin?.Invoke(valueCount);
+            EventCollectBegin?.Invoke(valueCount, spawnCount);
         }
 
-        public void Return()
+        public void Collect()
         {
             _returnCount++;
 
@@ -53,17 +53,17 @@ namespace LFramework
                 _returnCount = 0;
                 _returnExpect = 0;
 
-                eventReturn?.Invoke(1.0f);
+                EventCollect?.Invoke(1f);
             }
             else
             {
-                eventReturn?.Invoke((float)_returnCount / _returnExpect);
+                EventCollect?.Invoke((float)_returnCount / _returnExpect);
             }
         }
 
         public void ReturnEnd()
         {
-            eventReturnEnd?.Invoke();
+            EventCollectEnd?.Invoke();
         }
     }
 }

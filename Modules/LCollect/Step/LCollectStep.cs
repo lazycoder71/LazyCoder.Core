@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace LFramework
 {
@@ -13,7 +14,7 @@ namespace LFramework
             Insert = 2,
         }
 
-        public abstract string DisplayName { get; }
+        public virtual string DisplayName { get { return Regex.Replace(ToString().Replace(typeof(LCollectStep).ToString(), ""), "(?<!^)([A-Z])", " $1"); } }
 
         public abstract void Apply(LCollectItem item);
     }

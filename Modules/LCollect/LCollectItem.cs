@@ -1,21 +1,28 @@
 using DG.Tweening;
+using LFramework.Pool;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace LFramework
 {
-    public class LCollectItem : MonoBehaviour
+    public class LCollectItem : MonoBase
     {
-        Sequence _sequence;
+        [Title("Event")]
+        [SerializeField] private UnityEvent _eventConstructed;
+        [SerializeField] private UnityEvent _eventCollected;
 
-        LCollectDestination _destination;
+        private Sequence _sequence;
 
-        RectTransform _rectTransform;
+        private LCollectDestination _destination;
 
-        public Sequence sequence { get { return _sequence; } }
+        private RectTransform _rectTransform;
 
-        public LCollectDestination destination { get { return _destination; } }
+        public Sequence Sequence { get { return _sequence; } }
 
-        public RectTransform rectTransform { get { if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>(); return _rectTransform; } }
+        public LCollectDestination Destination { get { return _destination; } }
+
+        public RectTransform RectTransform { get { if (_rectTransform == null) _rectTransform = GetComponent<RectTransform>(); return _rectTransform; } }
 
         private void OnDestroy()
         {
@@ -24,12 +31,6 @@ namespace LFramework
 
         public void Construct(LCollectConfig config, LCollectDestination destination)
         {
-            if (destination == null)
-            {
-                Destruct();
-                return;
-            }
-
             _destination = destination;
 
             _sequence?.Kill();
@@ -42,15 +43,14 @@ namespace LFramework
 
             _sequence.OnComplete(() =>
             {
-                _destination.Return();
+                _destination.Collect();
 
-                Destruct();
+                PoolPrefabShared.Release(GameObjectCached);
+
+                _eventCollected?.Invoke();
             });
-        }
 
-        private void Destruct()
-        {
-            Destroy(gameObject);
+            _eventConstructed?.Invoke();
         }
     }
 }

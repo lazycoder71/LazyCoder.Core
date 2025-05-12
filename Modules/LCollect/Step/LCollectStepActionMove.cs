@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace LFramework
 {
-    public class LCollectStepActionMove : LCollectStepAction
+    public abstract class LCollectStepActionMove : LCollectStepAction
     {
         [Serializable]
         public enum Journey
@@ -23,7 +23,7 @@ namespace LFramework
         [ShowIf("@_journey == Journey.Spawn && !_startAtCenter")]
         [SerializeField] protected Vector3 _startOffset;
 
-        public override string DisplayName { get { return "Move"; } }
+        public override string DisplayName { get { return $"{base.DisplayName} ({_journey})"; } }
 
         protected override Tween GetTween(LCollectItem item)
         {
@@ -31,13 +31,13 @@ namespace LFramework
             {
                 case Journey.Spawn:
                     Vector3 endPos = item.transform.localPosition;
-                    Vector3 startPos = _startAtCenter ? Vector3.zero : endPos + _startOffset * item.rectTransform.GetUnitPerPixel();
+                    Vector3 startPos = _startAtCenter ? Vector3.zero : endPos + _startOffset * item.RectTransform.GetUnitPerPixel();
 
                     return item.transform.DOLocalMove(endPos, _duration)
                                                .ChangeStartValue(startPos)
                                                .SetEase(_ease);
                 case Journey.Return:
-                    return item.transform.DOMove(item.destination.position, _duration)
+                    return item.transform.DOMove(item.Destination.Position, _duration)
                                                .SetEase(_ease);
                 default:
                     return null;
