@@ -80,6 +80,7 @@ namespace LFramework
             LCollectItem item = PoolPrefabShared.Get(_config.spawnPrefab, TransformCached).GetComponent<LCollectItem>();
 
             item.TransformCached.localPosition = spawnPosition;
+            item.TransformCached.localScale = Vector3.one;
 
             item.Construct(_config, _destination);
         }
