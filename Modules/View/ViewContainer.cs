@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 
 namespace LFramework.View
 {
@@ -13,28 +12,9 @@ namespace LFramework.View
 
         private bool _isTransiting = false;
 
+        protected override bool _dontDestroyOnLoad { get { return false; } }
+
         #region Function -> Private
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-            SceneManager.activeSceneChanged += SceneManager_ActiveSceneChanged;
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-
-            SceneManager.activeSceneChanged -= SceneManager_ActiveSceneChanged;
-        }
-
-        private void SceneManager_ActiveSceneChanged(Scene arg0, Scene arg1)
-        {
-            // Close all view when scene changed
-            for (int i = _views.Count - 1; i >= 0; i--)
-                _views[i].Close();
-        }
 
         private View GetTopView()
         {
@@ -96,7 +76,7 @@ namespace LFramework.View
 
         #region Function -> Public
 
-        public async UniTask<View> PushAsync(AssetReference viewAsset, CancellationToken cancelToken)
+        public async UniTask<View> PushAsync(AssetReference viewAsset, CancellationToken cancelToken = new CancellationToken())
         {
             if (!CanPushNewView(viewAsset))
                 return null;
