@@ -27,9 +27,9 @@ namespace LFramework.Data
 
         protected virtual void Init()
         {
-            MonoCallback.Instance.EventApplicationPause += MonoCallback_ApplicationOnPause;
-            MonoCallback.Instance.EventApplicationQuit += MonoCallback_ApplicationOnQuit;
-            MonoCallback.Instance.EventApplicationFocus += MonoCAllback_EventApplicationFocus;
+            MonoCallback.SafeInstance.EventApplicationPause += MonoCallback_ApplicationOnPause;
+            MonoCallback.SafeInstance.EventApplicationQuit += MonoCallback_ApplicationOnQuit;
+            MonoCallback.SafeInstance.EventApplicationFocus += MonoCAllback_EventApplicationFocus;
         }
 
         private void MonoCAllback_EventApplicationFocus(bool isFocus)
