@@ -25,7 +25,7 @@ namespace LFramework.Pool
         {
             GameObject result = Get(prefab);
 
-            result.transform.parent = parent;
+            result.transform.SetParent(parent);
 
             return result;
         }
