@@ -14,8 +14,6 @@ namespace LFramework.View
 
         private bool _isTransiting = false;
 
-        protected override bool _dontDestroyOnLoad { get { return false; } }
-
         #region Function -> Private
 
         private View GetTopView()
