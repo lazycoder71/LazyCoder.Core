@@ -9,6 +9,8 @@ namespace LFramework.View
 {
     public class ViewContainer : MonoSingleton<ViewContainer>
     {
+        protected override bool _dontDestroyOnLoad { get { return false; } }
+
         private List<View> _views = new List<View>();
 
         private bool _isTransiting = false;
