@@ -3,22 +3,29 @@
 namespace LFramework
 {
     /// <summary>
-    /// Singleton pattern implementation.
-    /// Can be used with classes extended from a MonoBehaviour.
-    /// Once instance is found or created, game object will be marked as DontDestroyOnLoad.
+    /// Singleton pattern implementation for MonoBehaviour classes.
+    /// Features:
+    /// - Lazy initialization
+    /// - Optional DontDestroyOnLoad support
+    /// - Thread-safe instance access
+    /// - Proper cleanup on application quit
+    /// - Protection against accessing destroyed instances
     /// </summary>
-    public abstract class MonoSingleton<T> : MonoBase where T : MonoBehaviour
+    [DefaultExecutionOrder(-50)]
+    public abstract class MonoSingleton<T> : MonoBase where T : MonoSingleton<T>
     {
-        protected virtual bool _dontDestroyOnLoad { get { return true; } }
+        // Use a more descriptive property name
+        protected virtual bool PersistAcrossScenes => false;
 
+        // Use a readonly object for thread safety
+        private static readonly object s_lock = new object();
         private static T s_instance;
         private static bool s_applicationIsQuitting = false;
         private static bool s_isDestroyed = false;
 
         /// <summary>
-        /// Returns a singleton class instance
-        /// If current instance is not assigned it will try to find an object of the instance type,
-        /// in case instance already exists on a scene. If not, return null
+        /// Returns the singleton instance. If it doesn't exist, tries to find one in the scene.
+        /// If none exists, returns null (doesn't auto-create to avoid unexpected behavior).
         /// </summary>
         public static T Instance
         {
@@ -32,21 +39,39 @@ namespace LFramework
                     return null;
                 }
 
+                // Thread-safe check
                 if (s_instance == null)
                 {
-                    s_instance = FindAnyObjectByType(typeof(T)) as T;
+                    lock (s_lock)
+                    {
+                        if (s_instance == null)
+                        {
+                            s_instance = FindFirstObjectByType<T>(); // Include inactive objects
+                        }
+                    }
                 }
 
                 return s_instance;
             }
         }
 
+        /// <summary>
+        /// Returns the singleton instance. If it doesn't exist, creates one automatically.
+        /// </summary>
         public static T SafeInstance
         {
             get
             {
+                if (s_applicationIsQuitting)
+                {
+                    LDebug.LogWarning<T>($"Attempting to access {typeof(T)} after application quit.");
+                    return null;
+                }
+
                 if (Instance == null)
-                    Instantiate();
+                {
+                    CreateInstance();
+                }
 
                 return s_instance;
             }
@@ -55,32 +80,60 @@ namespace LFramework
         /// <summary>
         /// Returns `true` if Singleton Instance exists.
         /// </summary>
-        public static bool HasInstance => s_instance != null;
+        public static bool HasInstance => s_instance != null && !s_isDestroyed;
 
         /// <summary>
-        /// If this property returns `true` it means that object with explicitly destroyed.
-        /// This could happen if Destroy function  was called for this object or if it was
-        /// automatically destroyed during the `ApplicationQuit`.
+        /// Returns `true` if the singleton was explicitly destroyed or destroyed during application quit.
         /// </summary>
         public static bool IsDestroyed => s_isDestroyed;
 
         /// <summary>
-        /// Methods will create new object Instantiate
-        /// Normally method is called automatically when you referring to and Instance getter
-        /// for a first time.
-        /// But it may be useful if you want manually control when the instance is created,
-        /// even if you do not this specific instance at the moment
+        /// Creates a new instance of the singleton if one doesn't already exist.
         /// </summary>
-        private static void Instantiate()
+        /// <returns>The singleton instance</returns>
+        public static T CreateInstance()
         {
             if (HasInstance)
             {
-                LDebug.LogWarning<T>($"You are trying to Instantiate {typeof(T).FullName}, but it already has an instance. Please use instance property instead.");
-                return;
+                LDebug.LogWarning<T>($"Attempting to create {typeof(T).Name} instance, but one already exists.");
+                return s_instance;
             }
 
-            var name = typeof(T).FullName;
-            s_instance = new GameObject(name).AddComponent<T>();
+            lock (s_lock)
+            {
+                if (s_instance == null && !s_applicationIsQuitting)
+                {
+                    // Create a new GameObject with the type name
+                    var gameObject = new GameObject($"[Singleton] {typeof(T).Name}");
+                    s_instance = gameObject.AddComponent<T>();
+                    s_isDestroyed = false;
+
+                    LDebug.Log<T>($"Created singleton instance of {typeof(T).Name}");
+                }
+            }
+
+            return s_instance;
+        }
+
+        /// <summary>
+        /// Explicitly destroys the singleton instance if it exists.
+        /// </summary>
+        public static void DestroyInstance()
+        {
+            if (s_instance != null && !s_isDestroyed)
+            {
+                if (Application.isPlaying)
+                {
+                    Destroy(s_instance.gameObject);
+                }
+                else
+                {
+                    DestroyImmediate(s_instance.gameObject);
+                }
+
+                s_instance = null;
+                s_isDestroyed = true;
+            }
         }
 
         #region MonoBehaviour
@@ -90,42 +143,54 @@ namespace LFramework
             if (s_instance == null)
             {
                 s_isDestroyed = false;
-
                 s_instance = this as T;
 
-                if (_dontDestroyOnLoad)
-                    DontDestroyOnLoad(GameObjectCached);
+                if (PersistAcrossScenes)
+                {
+                    DontDestroyOnLoad(gameObject);
+                    LDebug.Log<T>($"Singleton {typeof(T).Name} marked as DontDestroyOnLoad");
+                }
+
+                OnSingletonAwake();
             }
             else if (s_instance != this)
             {
-                LDebug.Log<T>($"{typeof(T).FullName} is already exist, this one will be destroyed");
-
-                Destroy(GameObjectCached);
+                LDebug.Log<T>($"Duplicate singleton {typeof(T).Name} detected. Destroying duplicate.");
+                Destroy(gameObject);
             }
         }
 
         /// <summary>
-        /// When Unity quits, it destroys objects in a random order.
-        /// In principle, a Singleton is only destroyed when application quits.
-        /// If any script calls Instance after it have been destroyed,
-        /// it will create a buggy ghost object that will stay on the Editor scene
-        /// even after stopping playing the Application. Really bad!
-        /// So, this was made to be sure we're not creating that buggy ghost object.
+        /// Called when the singleton instance is first initialized.
+        /// Override this instead of Awake for singleton-specific initialization.
         /// </summary>
+        protected virtual void OnSingletonAwake() { }
+
         protected virtual void OnDestroy()
         {
             if (s_instance == this)
             {
                 s_instance = null;
                 s_isDestroyed = true;
+                OnSingletonDestroyed();
             }
         }
 
+        /// <summary>
+        /// Called when the singleton instance is being destroyed.
+        /// Override this instead of OnDestroy for singleton-specific cleanup.
+        /// </summary>
+        protected virtual void OnSingletonDestroyed() { }
+
         protected virtual void OnApplicationQuit()
         {
-            s_instance = null;
-            s_isDestroyed = true;
             s_applicationIsQuitting = true;
+
+            if (s_instance == this)
+            {
+                s_instance = null;
+                s_isDestroyed = true;
+            }
         }
 
         #endregion
