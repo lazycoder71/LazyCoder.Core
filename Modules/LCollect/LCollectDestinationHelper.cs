@@ -4,27 +4,27 @@ namespace LFramework
 {
     public static class LCollectDestinationHelper
     {
-        static Dictionary<LCollectConfig, Stack<LCollectDestination>> destinationDict;
+        private static Dictionary<LCollectConfig, Stack<LCollectDestination>> s_destinationDict;
 
         public static void Push(LCollectDestination destination)
         {
-            if (destinationDict == null)
-                destinationDict = new Dictionary<LCollectConfig, Stack<LCollectDestination>>();
+            if (s_destinationDict == null)
+                s_destinationDict = new Dictionary<LCollectConfig, Stack<LCollectDestination>>();
 
-            if (!destinationDict.ContainsKey(destination.config))
-                destinationDict.Add(destination.config, new Stack<LCollectDestination>());
+            if (!s_destinationDict.ContainsKey(destination.Config))
+                s_destinationDict.Add(destination.Config, new Stack<LCollectDestination>());
 
-            destinationDict[destination.config].Push(destination);
+            s_destinationDict[destination.Config].Push(destination);
         }
 
         public static void Pop(LCollectDestination destination)
         {
-            if (destinationDict == null)
+            if (s_destinationDict == null)
                 return;
 
             Stack<LCollectDestination> stack;
 
-            destinationDict.TryGetValue(destination.config, out stack);
+            s_destinationDict.TryGetValue(destination.Config, out stack);
 
             if (stack == null || stack.Count == 0)
                 return;
@@ -34,13 +34,13 @@ namespace LFramework
 
         public static LCollectDestination Get(LCollectConfig config)
         {
-            if (destinationDict == null)
+            if (s_destinationDict == null)
                 return null;
 
-            if (!destinationDict.ContainsKey(config))
+            if (!s_destinationDict.ContainsKey(config))
                 return null;
 
-            Stack<LCollectDestination> stack = destinationDict[config];
+            Stack<LCollectDestination> stack = s_destinationDict[config];
 
             if(stack == null || stack.Count == 0) 
                 return null;

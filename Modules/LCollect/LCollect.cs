@@ -1,4 +1,5 @@
 using DG.Tweening;
+using LFramework.Pool;
 using System;
 using UnityEngine;
 
@@ -19,14 +20,14 @@ namespace LFramework
             _tween?.Kill();
         }
 
-        public void Construct(LCollectConfig config, LCollectDestination destination, int count, Action onComplete)
+        public void Construct(LCollectConfig config, LCollectDestination destination, int valueCount, Action onComplete)
         {
             _config = config;
             _destination = destination;
             _onComplete = onComplete;
 
             // Get spawn count base on input count
-            int spawnCount = config.GetSpawnCount(count);
+            int spawnCount = config.GetSpawnCount(valueCount);
 
             float delayBetween = spawnCount > 1 ? config.spawnDuration / (spawnCount - 1) : 0.0f;
 
@@ -48,7 +49,7 @@ namespace LFramework
             _tween = sequence;
 
             // Notify destination about the return begin
-            _destination.ReturnBegin(count, spawnCount);
+            _destination.CollectBegin(valueCount, spawnCount);
         }
 
         private void StartCheckEmptyLoop()
@@ -76,9 +77,10 @@ namespace LFramework
 
         private void Spawn(Vector3 spawnPosition)
         {
-            LCollectItem item = _config.spawnPrefab.Create(TransformCached, false).GetComponent<LCollectItem>();
+            LCollectItem item = PoolPrefabShared.Get(_config.spawnPrefab, TransformCached).GetComponent<LCollectItem>();
 
-            item.transform.localPosition = spawnPosition;
+            item.TransformCached.localPosition = spawnPosition;
+            item.TransformCached.localScale = Vector3.one;
 
             item.Construct(_config, _destination);
         }

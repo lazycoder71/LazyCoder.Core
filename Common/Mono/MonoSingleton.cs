@@ -18,7 +18,7 @@ namespace LFramework
         /// <summary>
         /// Returns a singleton class instance
         /// If current instance is not assigned it will try to find an object of the instance type,
-        /// in case instance already exists on a scene. If not, new instance will be created
+        /// in case instance already exists on a scene. If not, return null
         /// </summary>
         public static T Instance
         {
@@ -35,9 +35,18 @@ namespace LFramework
                 if (s_instance == null)
                 {
                     s_instance = FindAnyObjectByType(typeof(T)) as T;
-                    if (s_instance == null)
-                        Instantiate();
                 }
+
+                return s_instance;
+            }
+        }
+
+        public static T SafeInstance
+        {
+            get
+            {
+                if (Instance == null)
+                    Instantiate();
 
                 return s_instance;
             }

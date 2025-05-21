@@ -5,13 +5,11 @@ namespace LFramework
 {
     public class LCollectStepInterval : LCollectStep
     {
-        [SerializeField] float _duration;
-
-        public override string DisplayName { get { return "Interval"; } }
+        [SerializeField] private float _duration;
 
         public override void Apply(LCollectItem item)
         {
-            item.sequence.AppendInterval(_duration);
+            item.Sequence.AppendInterval(_duration);
         }
     }
 }

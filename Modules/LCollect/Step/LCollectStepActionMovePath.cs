@@ -7,10 +7,9 @@ namespace LFramework
     public class LCollectStepActionMovePath : LCollectStepActionMove
     {
         [SerializeField] PathType _pathType;
+
         [ValidateInput("CheckPoints", "Path Type: Cubic Bezier - Control points must be 2")]
         [SerializeField] Vector3[] _points;
-
-        public override string DisplayName { get { return "Move Path"; } }
 
         protected override Tween GetTween(LCollectItem item)
         {
@@ -21,10 +20,10 @@ namespace LFramework
             {
                 case Journey.Spawn:
                     posEnd = item.transform.localPosition;
-                    posStart = _startAtCenter ? Vector3.zero : posEnd + _startOffset * item.rectTransform.GetUnitPerPixel();
+                    posStart = _startAtCenter ? Vector3.zero : posEnd + _startOffset * item.RectTransform.GetUnitPerPixel();
                     break;
                 case Journey.Return:
-                    posEnd = item.destination.position;
+                    posEnd = item.Destination.Position;
                     posStart = item.transform.position;
                     break;
             }

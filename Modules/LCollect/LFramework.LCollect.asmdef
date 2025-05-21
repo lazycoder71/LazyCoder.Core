@@ -3,7 +3,7 @@
     "rootNamespace": "",
     "references": [
         "LFramework",
-        "LFramework.Audio",
+        "LFramework.Pool",
         "Vertx.Debugging.Runtime",
         "Unity.Mathematics"
     ],
