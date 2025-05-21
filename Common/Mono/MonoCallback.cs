@@ -12,6 +12,8 @@ namespace LFramework
     /// </summary>
     public class MonoCallback : MonoSingleton<MonoCallback>
     {
+        protected override bool PersistAcrossScenes => true;
+
         /// <summary>
         /// Update is called every frame.
         /// Learn more: [MonoBehaviour.Update](https://docs.unity3d.com/ScriptReference/MonoBehaviour.Update.html)
