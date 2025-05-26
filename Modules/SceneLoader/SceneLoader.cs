@@ -25,8 +25,7 @@ namespace LFramework.SceneLoader
 
         private bool _isTransiting = false;
 
-        public float fadeInDuration { get { return _fadeInDuration; } }
-        public float fadeOutDuration { get { return _fadeOutDuration; } }
+        protected override bool PersistAcrossScenes { get { return true; } }
 
         private async UniTaskVoid LoadAsync(AsyncOperation asyncOperation)
         {
