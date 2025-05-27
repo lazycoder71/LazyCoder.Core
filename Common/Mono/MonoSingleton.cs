@@ -15,7 +15,7 @@ namespace LFramework
     public abstract class MonoSingleton<T> : MonoBase where T : MonoSingleton<T>
     {
         // Use a more descriptive property name
-        protected virtual bool PersistAcrossScenes => false;
+        protected abstract bool PersistAcrossScenes { get; }
 
         // Use a readonly object for thread safety
         private static readonly object s_lock = new object();

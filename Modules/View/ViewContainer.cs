@@ -12,6 +12,8 @@ namespace LFramework.View
 
         private bool _isTransiting = false;
 
+        protected override bool PersistAcrossScenes { get { return false; } }
+
         #region Function -> Private
 
         private View GetTopView()
