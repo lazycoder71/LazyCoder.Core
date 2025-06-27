@@ -4,7 +4,6 @@
     "references": [
         "Unity.TextMeshPro",
         "DOTween.Modules",
-        "OdinSerializer",
         "Vertx.Debugging.Runtime",
         "Unity.Addressables",
         "Unity.ResourceManager",
