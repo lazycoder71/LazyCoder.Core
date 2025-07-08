@@ -33,7 +33,7 @@ namespace LFramework.ScriptableObjects.Editor
 
         public static void Create(params string[] assemblyNames)
         {
-            List<System.Type> allScriptableObjects = new List<System.Type>();
+            List<Type> allScriptableObjects = new List<Type>();
 
             foreach (string assemblyName in assemblyNames)
             {

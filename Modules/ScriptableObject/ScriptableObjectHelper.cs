@@ -10,7 +10,7 @@ namespace LFramework.ScriptableObjects
     {
         public static T CreateAsset<T>(string path, string fileName) where T : ScriptableObject
         {
-            string filePath = string.Format("{0}/{1}.asset", path, fileName);
+            string filePath = $"{path}/{fileName}.asset";
 
             if (AssetDatabase.LoadAssetAtPath<T>(filePath))
             {
@@ -34,13 +34,12 @@ namespace LFramework.ScriptableObjects
 
         public static T LoadOrCreateNewAsset<T>(string path, string fileName) where T : ScriptableObject
         {
-            string filePath = string.Format("{0}/{1}.asset", path, fileName);
+            string filePath = $"{path}/{fileName}.asset";
 
             T asset = AssetDatabase.LoadAssetAtPath(filePath, typeof(T)) as T;
+
             if (asset == null)
-            {
                 asset = CreateAsset<T>(path, fileName);
-            }
 
             return asset;
         }
@@ -72,7 +71,9 @@ namespace LFramework.ScriptableObjects
         public static List<T> FindAssetsByType<T>() where T : ScriptableObject
         {
             List<T> assets = new List<T>();
-            string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
+
+            string[] guids = AssetDatabase.FindAssets($"t:{typeof(T)}");
+
             for (int i = 0; i < guids.Length; i++)
             {
                 string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
@@ -82,6 +83,7 @@ namespace LFramework.ScriptableObjects
                     assets.Add(asset);
                 }
             }
+
             return assets;
         }
 
