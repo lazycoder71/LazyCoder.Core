@@ -1,4 +1,4 @@
-﻿namespace LFramework.Vibration
+﻿namespace LazyCoder.Vibration
 {
     public static class Vibration
     {

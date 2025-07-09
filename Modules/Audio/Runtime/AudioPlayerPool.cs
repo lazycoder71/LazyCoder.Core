@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace LFramework.Audio
+namespace LazyCoder.Audio
 {
     public class AudioPlayerPool
     {

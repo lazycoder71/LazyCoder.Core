@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
-namespace LFramework.ScriptableObjects.Editor
+namespace LazyCoder.ScriptableObjects.Editor
 {
     internal class EndNameEdit : EndNameEditAction
     {

@@ -2,7 +2,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LFramework.AnimationSequence
+namespace LazyCoder.AnimationSequence
 {
     public class AnimationSequenceStepTransformMove : AnimationSequenceStepTransform
     {

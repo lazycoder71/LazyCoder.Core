@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class GuiText : MonoBase

@@ -1,4 +1,4 @@
-﻿namespace LFramework
+﻿namespace LazyCoder
 {
     /// <summary>
     /// An interface for the event bus pattern.

@@ -1,10 +1,9 @@
 {
-    "name": "LFramework.SceneLoader",
-    "rootNamespace": "LFramework.SceneLoader",
+    "name": "LazyCoder.AnimationSequence",
+    "rootNamespace": "LazyCoder.AnimationSequence",
     "references": [
-        "LFramework",
-        "LFramework.ScriptableObjects",
-        "UniTask"
+        "GUID:066eba6989fe3dc4193e5b535868c168",
+        "GUID:17e11ac8fb2b3d24182df524491c02c7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

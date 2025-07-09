@@ -1,14 +1,14 @@
 {
-    "name": "LazyCoder.Audio.Editor",
-    "rootNamespace": "",
+    "name": "LazyCoder.View",
+    "rootNamespace": "LazyCoder.View",
     "references": [
         "GUID:066eba6989fe3dc4193e5b535868c168",
-        "GUID:d46639c9da3f5314d8ef10481df4dccb",
-        "GUID:6a4b905923525d94ea93aa1e81b038e3"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:17e11ac8fb2b3d24182df524491c02c7"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

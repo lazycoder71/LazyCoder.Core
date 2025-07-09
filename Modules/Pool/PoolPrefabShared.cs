@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LFramework.Pool
+namespace LazyCoder.Pool
 {
     public static class PoolPrefabShared
     {

@@ -1,7 +1,7 @@
 using DG.Tweening;
 using System;
 
-namespace LFramework.View
+namespace LazyCoder.View
 {
     [Serializable]
     public abstract class ViewTransition

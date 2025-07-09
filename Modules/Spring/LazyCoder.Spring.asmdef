@@ -1,9 +1,9 @@
 {
-    "name": "LFramework.AnimationSequence",
-    "rootNamespace": "LFramework.AnimationSequence",
+    "name": "LazyCoder.Spring",
+    "rootNamespace": "LazyCoder.Spring",
     "references": [
-        "LFramework",
-        "DOTween.Modules"
+        "LazyCoder.Core",
+        "UniTask"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

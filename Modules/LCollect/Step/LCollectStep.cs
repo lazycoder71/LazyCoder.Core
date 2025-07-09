@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace LFramework
+namespace LazyCoder
 {
     [Serializable]
     public abstract class LCollectStep

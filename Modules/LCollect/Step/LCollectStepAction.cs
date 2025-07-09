@@ -2,7 +2,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public abstract class LCollectStepAction : LCollectStep
     {

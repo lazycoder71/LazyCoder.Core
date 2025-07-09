@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public class MonoBase : MonoBehaviour
     {

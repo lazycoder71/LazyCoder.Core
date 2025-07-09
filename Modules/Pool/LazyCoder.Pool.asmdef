@@ -1,6 +1,6 @@
 {
-    "name": "LFramework.Pool",
-    "rootNamespace": "LFramework.Pool",
+    "name": "LazyCoder.Pool",
+    "rootNamespace": "LazyCoder.Pool",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

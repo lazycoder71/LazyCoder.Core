@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LFramework.Pool
+namespace LazyCoder.Pool
 {
     internal static class PoolCallbackHelper
     {

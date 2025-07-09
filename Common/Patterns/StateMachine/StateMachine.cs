@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LFramework
+namespace LazyCoder
 {
     /// <summary>
     /// A lightweight state machine.

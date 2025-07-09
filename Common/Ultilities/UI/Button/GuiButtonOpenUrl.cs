@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public class GuiButtonOpenUrl : GuiButton
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace LFramework
+namespace LazyCoder
 {
     public static class ExtensionsScrollRect
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace LFramework.Pool
+namespace LazyCoder.Pool
 {
     public class PoolPrefab : ObjectPool<GameObject>
     {

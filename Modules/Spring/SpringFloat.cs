@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LFramework.Spring
+namespace LazyCoder.Spring
 {
     public class SpringFloat : SpringBase<float>
     {

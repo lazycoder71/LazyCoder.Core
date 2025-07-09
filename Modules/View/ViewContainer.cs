@@ -4,7 +4,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace LFramework.View
+namespace LazyCoder.View
 {
     public class ViewContainer : MonoSingleton<ViewContainer>
     {

@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
-namespace LFramework.LifetimeBinding
+namespace LazyCoder.LifetimeBinding
 {
     public static class LifetimeBindingAddressable
     {

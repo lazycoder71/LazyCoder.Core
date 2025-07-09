@@ -1,7 +1,7 @@
-using LFramework.ScriptableObjects;
+using LazyCoder.ScriptableObjects;
 using UnityEngine;
 
-namespace LFramework.SceneLoader
+namespace LazyCoder.SceneLoader
 {
     public class SceneLoaderSos : ScriptableObjectSingleton<SceneLoaderSos>
     {

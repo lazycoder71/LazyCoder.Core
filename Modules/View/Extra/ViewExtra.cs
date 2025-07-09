@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace LFramework.View
+namespace LazyCoder.View
 {
     [System.Serializable]
     public abstract class ViewExtra : MonoBehaviour

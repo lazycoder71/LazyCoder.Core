@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LFramework
+namespace LazyCoder
 {
     public static class LCollectDestinationHelper
     {

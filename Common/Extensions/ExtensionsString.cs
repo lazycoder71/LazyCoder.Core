@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public static class ExtensionsString
     {

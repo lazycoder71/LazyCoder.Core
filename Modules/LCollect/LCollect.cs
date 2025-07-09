@@ -1,9 +1,9 @@
 using DG.Tweening;
-using LFramework.Pool;
+using LazyCoder.Pool;
 using System;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public class LCollect : MonoBase
     {

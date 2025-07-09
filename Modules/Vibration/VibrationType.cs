@@ -1,4 +1,4 @@
-namespace LFramework.Vibration
+namespace LazyCoder.Vibration
 {
     [System.Serializable]   
     public enum VibrationType 

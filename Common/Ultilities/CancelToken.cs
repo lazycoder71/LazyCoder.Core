@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace LFramework
+namespace LazyCoder
 {
     public class CancelToken
     {

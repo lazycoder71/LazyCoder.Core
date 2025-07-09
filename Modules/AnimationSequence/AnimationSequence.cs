@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace LFramework.AnimationSequence
+namespace LazyCoder.AnimationSequence
 {
     public class AnimationSequence : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     [Serializable]
     public class LValue<T>

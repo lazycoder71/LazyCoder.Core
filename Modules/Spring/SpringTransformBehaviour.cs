@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-namespace LFramework.Spring
+namespace LazyCoder.Spring
 {
     public class SpringTransformBehaviour : MonoBase
     {

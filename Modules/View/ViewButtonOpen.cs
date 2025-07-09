@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace LFramework.View
+namespace LazyCoder.View
 {
     public class ViewButtonOpen : GuiButton
     {

@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public static class ExtensionsArray
     {

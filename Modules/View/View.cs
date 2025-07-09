@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using Cysharp.Threading.Tasks;
 using System.Diagnostics;
 
-namespace LFramework.View
+namespace LazyCoder.View
 {
     [RequireComponent(typeof(CanvasGroup))]
     public sealed class View : MonoBase

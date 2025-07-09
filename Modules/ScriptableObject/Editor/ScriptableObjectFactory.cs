@@ -5,7 +5,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace LFramework.ScriptableObjects.Editor
+namespace LazyCoder.ScriptableObjects.Editor
 {
     /// <summary>
     /// Helper class for instantiating ScriptableObjects.

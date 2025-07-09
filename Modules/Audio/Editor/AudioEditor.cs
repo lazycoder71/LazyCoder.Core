@@ -1,9 +1,9 @@
-using LFramework.ScriptableObjects;
+using LazyCoder.ScriptableObjects;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace LFramework.Audio.Editor
+namespace LazyCoder.Audio.Editor
 {
     public static class AudioEditor 
     {

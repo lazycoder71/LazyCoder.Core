@@ -1,6 +1,6 @@
 using System;
 
-namespace LFramework.AnimationSequence
+namespace LazyCoder.AnimationSequence
 {
     [Serializable]
     public abstract class AnimationSequenceStep

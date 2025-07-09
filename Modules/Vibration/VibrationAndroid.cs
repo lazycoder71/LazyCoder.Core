@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace LFramework.Vibration
+namespace LazyCoder.Vibration
 {
     /// <summary>
     /// Class for controlling Vibration on Android. Automatically initializes before scene is loaded.

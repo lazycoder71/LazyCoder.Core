@@ -2,7 +2,7 @@ using DG.DOTweenEditor;
 using UnityEditor;
 using UnityEngine;
 
-namespace LFramework.AnimationSequence.Editor
+namespace LazyCoder.AnimationSequence.Editor
 {
     [CustomEditor(typeof(AnimationSequence))]
     public class AnimationSequenceInspector : Sirenix.OdinInspector.Editor.OdinEditor

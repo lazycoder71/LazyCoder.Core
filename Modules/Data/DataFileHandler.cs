@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace LFramework.Data
+namespace LazyCoder.Data
 {
     public static class DataFileHandler
     {

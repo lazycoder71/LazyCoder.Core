@@ -1,4 +1,4 @@
-﻿namespace LFramework
+﻿namespace LazyCoder
 {
     /// <summary>
     /// Interface represents and even distributed via <see cref="IEventBus"/>

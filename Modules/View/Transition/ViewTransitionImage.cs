@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace LFramework.View
+namespace LazyCoder.View
 {
     public class ViewTransitionImage : ViewTransition
     {

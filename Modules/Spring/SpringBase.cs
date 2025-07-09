@@ -1,4 +1,4 @@
-namespace LFramework.Spring
+namespace LazyCoder.Spring
 {
     public abstract class SpringBase<T>
     {

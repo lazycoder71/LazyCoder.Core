@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine.Events;
 using Cysharp.Threading.Tasks;
 
-namespace LFramework.SceneLoader
+namespace LazyCoder.SceneLoader
 {
     public class SceneLoader : MonoSingleton<SceneLoader>
     {

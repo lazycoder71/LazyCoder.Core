@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     /// <summary>
     /// Singleton pattern implementation for MonoBehaviour classes.

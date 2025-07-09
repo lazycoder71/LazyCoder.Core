@@ -1,4 +1,4 @@
-namespace LFramework.Pool
+namespace LazyCoder.Pool
 {
     public interface IPoolCallbackReceiver 
     {

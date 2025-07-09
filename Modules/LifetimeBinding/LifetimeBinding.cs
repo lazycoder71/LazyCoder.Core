@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace LFramework.LifetimeBinding
+namespace LazyCoder.LifetimeBinding
 {
     public sealed class LifetimeBinding : MonoBehaviour
     {

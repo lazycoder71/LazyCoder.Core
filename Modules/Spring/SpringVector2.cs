@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LFramework.Spring
+namespace LazyCoder.Spring
 {
     public class SpringVector2 : SpringBase<Vector2>
     {

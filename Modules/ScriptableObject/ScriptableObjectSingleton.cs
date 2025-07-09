@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LFramework.ScriptableObjects
+namespace LazyCoder.ScriptableObjects
 {
     public abstract class ScriptableObjectSingleton<T> : ScriptableObject where T : ScriptableObject
     {

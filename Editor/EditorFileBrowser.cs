@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace LFramework.Editor
+namespace LazyCoder.Editor
 {
     public static class EditorFileBrowser
     {

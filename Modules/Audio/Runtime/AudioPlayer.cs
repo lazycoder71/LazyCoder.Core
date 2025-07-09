@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace LFramework.Audio
+namespace LazyCoder.Audio
 {
     public class AudioPlayer : MonoBase
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LFramework
+namespace LazyCoder
 {
     /// <summary>
     /// Basic implementation of the <see cref="IEventBus"/>.

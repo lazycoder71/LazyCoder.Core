@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LFramework.Data
+namespace LazyCoder.Data
 {
     [System.Serializable]
     public class DataBlock<T> where T : DataBlock<T>

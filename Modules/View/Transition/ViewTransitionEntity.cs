@@ -2,7 +2,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LFramework.View
+namespace LazyCoder.View
 {
     public class ViewTransitionEntity : MonoBase
     {

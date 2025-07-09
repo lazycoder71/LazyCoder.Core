@@ -2,7 +2,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     [System.Serializable]
     public class LCollectConfig : ScriptableObject

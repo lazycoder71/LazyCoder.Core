@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     /// <summary>
     /// Safe area implementation for notched mobile devices. Usage:

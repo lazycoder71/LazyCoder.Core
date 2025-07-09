@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LFramework
+namespace LazyCoder
 {
     /// <summary>
     /// This is the simplest an fastest implementation for the event bus pattern.

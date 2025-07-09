@@ -2,7 +2,7 @@
     "name": "LFramework.AnimationSequence.Editor",
     "rootNamespace": "",
     "references": [
-        "LFramework.AnimationSequence"
+        "GUID:b94352ff744c65e4c85e800ffce6e850"
     ],
     "includePlatforms": [
         "Editor"

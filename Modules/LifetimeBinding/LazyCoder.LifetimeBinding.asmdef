@@ -1,14 +1,9 @@
 {
-    "name": "LFramework",
-    "rootNamespace": "LFramework",
+    "name": "LazyCoder.LifetimeBinding",
+    "rootNamespace": "LazyCoder.LifetimeBinding",
     "references": [
-        "Unity.TextMeshPro",
-        "DOTween.Modules",
-        "Vertx.Debugging.Runtime",
-        "Unity.Addressables",
         "Unity.ResourceManager",
-        "UniTask",
-        "UniTask.DOTween"
+        "Unity.Addressables"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

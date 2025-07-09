@@ -2,7 +2,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Vertx.Debugging;
 
-namespace LFramework
+namespace LazyCoder
 {
     [RequireComponent(typeof(RectTransform))]
     public class LCollectPreview : MonoBehaviour

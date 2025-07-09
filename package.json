@@ -1,8 +1,8 @@
 {
-  "name": "l.unity.frameworks",
-  "displayName": "LazyCoder Framework",
-  "version": "1.1.1",
-  "unity": "2022.3",
+  "name": "lazycoder.unity.core",
+  "displayName": "LazyCoder Unity Core",
+  "version": "1.1.2",
+  "unity": "6000.1",
   "description": "Collection of utility methods, design patterns, and extensions for Unity.",
   "keywords": [
     "pattern",
@@ -10,12 +10,12 @@
     "unity"
   ],
   "bugs": {
-    "url": "https://github.com/lazycoder71/LFramework/issues",
+    "url": "https://github.com/lazycoder71/LazyCoder.Core/issues",
     "email": "lamnd.bounce@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lazycoder71/LFramework.git"
+    "url": "https://github.com/lazycoder71/LazyCoder.Core.git"
   },
   "license": "MIT",
   "author": {

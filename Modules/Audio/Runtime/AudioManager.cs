@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LFramework.Audio
+namespace LazyCoder.Audio
 {
     public static class AudioManager
     {

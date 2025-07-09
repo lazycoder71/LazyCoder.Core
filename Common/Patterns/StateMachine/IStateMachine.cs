@@ -1,4 +1,4 @@
-﻿namespace LFramework
+﻿namespace LazyCoder
 {
     public interface IStateMachine
     {

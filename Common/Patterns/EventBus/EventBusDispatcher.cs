@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LFramework
+namespace LazyCoder
 {
     static class EventBusDispatcher<T> where T : IEvent
     {

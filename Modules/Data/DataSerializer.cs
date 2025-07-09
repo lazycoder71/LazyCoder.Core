@@ -5,7 +5,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
 
-namespace LFramework.Data
+namespace LazyCoder.Data
 {
     public class DataSerializer
     {

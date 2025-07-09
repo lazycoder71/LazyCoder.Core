@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-namespace LFramework
+namespace LazyCoder
 {
     public class GuiButton : MonoBase
     {

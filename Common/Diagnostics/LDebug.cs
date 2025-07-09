@@ -3,7 +3,7 @@ using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace LFramework
+namespace LazyCoder
 {
     /// <summary>
     /// Class that contains methods useful for debugging.

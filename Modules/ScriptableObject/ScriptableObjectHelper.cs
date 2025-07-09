@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace LFramework.ScriptableObjects
+namespace LazyCoder.ScriptableObjects
 {
     public static class ScriptableObjectHelper
     {

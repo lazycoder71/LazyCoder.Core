@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public class LCollectStepActionScale : LCollectStepAction
     {

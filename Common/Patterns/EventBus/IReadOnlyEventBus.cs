@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LFramework
+namespace LazyCoder
 {
     /// <summary>
     /// Interface allows to subscribe and unsubscribe from event bus events.

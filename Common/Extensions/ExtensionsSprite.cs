@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public static class ExtensionsSprite
     {

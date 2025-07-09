@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LFramework.Audio
+namespace LazyCoder.Audio
 {
     [System.Serializable]
     public class AudioConfig : ScriptableObject

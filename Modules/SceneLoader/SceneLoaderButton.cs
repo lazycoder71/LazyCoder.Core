@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace LFramework.SceneLoader
+namespace LazyCoder.SceneLoader
 {
     public class SceneLoaderButton : GuiButton
     {

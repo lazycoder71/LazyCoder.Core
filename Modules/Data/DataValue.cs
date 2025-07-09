@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace LFramework.Data
+namespace LazyCoder.Data
 {
 #if LFRAMEWORK_MEMORYPACK
     [MemoryPack.MemoryPackable]

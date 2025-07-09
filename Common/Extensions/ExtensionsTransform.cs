@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace LFramework
+namespace LazyCoder
 {
     public static class ExtensionsTransform
     {

@@ -1,10 +1,14 @@
 {
-    "name": "LFramework.ScriptableObjects",
-    "rootNamespace": "LFramework.ScriptableObjects",
+    "name": "LazyCoder.Vibration",
+    "rootNamespace": "LazyCoder.Vibration",
     "references": [
-        "LFramework"
+        "GUID:066eba6989fe3dc4193e5b535868c168"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "iOS"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
