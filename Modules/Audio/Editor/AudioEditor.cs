@@ -1,4 +1,4 @@
-using LazyCoder.ScriptableObjects;
+using LazyCoder.SO;
 using System.IO;
 using UnityEditor;
 using UnityEngine;

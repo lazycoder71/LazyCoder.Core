@@ -1,4 +1,4 @@
-using LazyCoder.ScriptableObjects;
+using LazyCoder.SO;
 using UnityEngine;
 
 namespace LazyCoder.SceneLoader
