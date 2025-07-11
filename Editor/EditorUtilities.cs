@@ -6,7 +6,7 @@ using System;
 using System.Text;
 using UnityEngine.SceneManagement;
 
-namespace LazyCoder.Editor
+namespace LazyCoder.Core.Editor
 {
     public static class EditorUtilities
     {
