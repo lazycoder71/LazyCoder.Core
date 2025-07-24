@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 using Sirenix.OdinInspector;
-using LitMotion;
-using LitMotion.Extensions;
 
 namespace LazyCoder.Core
 {
@@ -13,7 +12,7 @@ namespace LazyCoder.Core
 
         [Title("Config")]
         [SerializeField] private Vector3 _scaleStart = new Vector3(1.0f, 1.0f, 1.0f);
-        [SerializeField] private Vector3 _scaleEnd = new Vector3(0.9f, 0.9f, 0.9f);
+        [SerializeField] private Vector3 _scaleEnd = new Vector3(0.9f, 0.9f, 1.0f);
 
         [Min(0.1f)]
         [SerializeField] private float _scaleDuration = 0.1f;
@@ -22,9 +21,7 @@ namespace LazyCoder.Core
 
         private bool _isDown = false;
 
-        private bool _isScaleFoward = false;
-
-        private MotionHandle _motion;
+        private Tween _tween;
 
         #region Monobehaviour
 
@@ -34,63 +31,49 @@ namespace LazyCoder.Core
                 _target = transform;
         }
 
+        private void OnDestroy()
+        {
+            _tween?.Kill();
+        }
+
         private void OnDisable()
         {
-            _motion.TryCancel();
+            _tween?.Restart();
+            _tween?.Kill();
+            _tween = null;
         }
 
         #endregion
 
         #region Function -> Private
 
-        private void InitMotion(bool isFoward)
+        private void InitTween()
         {
-            _motion.TryCancel();
-            _motion = LMotion.Create(isFoward ? 0f : 1f, isFoward ? 1f : 0f, _scaleDuration)
-                             .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)
-                             .WithEase(_scaleEase)
-                             .Bind(ScaleMotion);
+            if (_tween != null)
+                return;
+
+            _tween = _target.DOScale(_scaleEnd, _scaleDuration)
+                            .ChangeStartValue(_scaleStart)
+                            .SetEase(_scaleEase)
+                            .SetAutoKill(false)
+                            .SetUpdate(true);
+
+            _tween.Restart();
+            _tween.Pause();
         }
 
-        private void ScaleMotion(float progress)
+        private void ScaleUp()
         {
-            _target.localScale = Vector3.Lerp(_scaleStart, _scaleEnd, progress);
+            InitTween();
+
+            _tween.PlayForward();
         }
 
-        private void ScaleForward()
+        private void ScaleDown()
         {
-            if (_motion.IsActive())
-            {
-                double previousTime = _isScaleFoward ? _motion.Time : _motion.Duration - _motion.Time;
+            InitTween();
 
-                InitMotion(true);
-
-                _motion.Time = previousTime;
-            }
-            else
-            {
-                InitMotion(true);
-            }
-
-            _isScaleFoward = true;
-        }
-
-        private void ScaleBackward()
-        {
-            if (_motion.IsActive())
-            {
-                double previousTime = _isScaleFoward ? _motion.Duration - _motion.Time : _motion.Time;
-
-                InitMotion(false);
-
-                _motion.Time = previousTime;
-            }
-            else
-            {
-                InitMotion(false);
-            }
-
-            _isScaleFoward = false;
+            _tween.PlayBackwards();
         }
 
         #endregion
@@ -101,26 +84,26 @@ namespace LazyCoder.Core
         {
             _isDown = true;
 
-            ScaleForward();
+            ScaleUp();
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
             if (_isDown)
-                ScaleBackward();
+                ScaleDown();
         }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
             if (_isDown)
-                ScaleForward();
+                ScaleUp();
         }
 
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
         {
             _isDown = false;
 
-            ScaleBackward();
+            ScaleDown();
         }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
