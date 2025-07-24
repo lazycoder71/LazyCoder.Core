@@ -12,13 +12,13 @@ namespace LazyCoder.Core.Editor
     {
         #region Data
 
-        [MenuItem("LFramework/Data/Clear PlayerPrefs", false)]
+        [MenuItem("LazyCoder/Data/Clear PlayerPrefs", false)]
         private static void ClearPlayerPrefs()
         {
             PlayerPrefs.DeleteAll();
         }
 
-        [MenuItem("LFramework/Data/Clear Game Data", false)]
+        [MenuItem("LazyCoder/Data/Clear Game Data", false)]
         private static void ClearGameData()
         {
             DirectoryInfo di = new DirectoryInfo(Application.persistentDataPath);
@@ -34,14 +34,14 @@ namespace LazyCoder.Core.Editor
             }
         }
 
-        [MenuItem("LFramework/Data/Clear Caching", false)]
+        [MenuItem("LazyCoder/Data/Clear Caching", false)]
         private static void ClearCache()
         {
             Caching.ClearCache();
             Debug.Log("Caching cleared!");
         }
 
-        [MenuItem("LFramework/Data/Clear All", false)]
+        [MenuItem("LazyCoder/Data/Clear All", false)]
         private static void ClearAll()
         {
             ClearPlayerPrefs();
@@ -49,7 +49,7 @@ namespace LazyCoder.Core.Editor
             ClearCache();
         }
 
-        [MenuItem("LFramework/Data/Open GameData Directory", false)]
+        [MenuItem("LazyCoder/Data/Open GameData Directory", false)]
         private static void OpenGameData()
         {
             EditorFileBrowser.OpenDirectory(Application.persistentDataPath);
@@ -62,7 +62,7 @@ namespace LazyCoder.Core.Editor
         private static readonly float s_slowTimeScale = 0.1f;
         private static bool s_slowed = false;
 
-        [MenuItem("LFramework/Game/Pause or Resume _F2", false)]
+        [MenuItem("LazyCoder/Game/Pause or Resume _F2", false)]
         private static void Pause()
         {
             if (!Application.isPlaying)
@@ -78,7 +78,7 @@ namespace LazyCoder.Core.Editor
             }
         }
 
-        [MenuItem("LFramework/Game/Slow or Resume _F3", false)]
+        [MenuItem("LazyCoder/Game/Slow or Resume _F3", false)]
         private static void Slow()
         {
             if (!Application.isPlaying)
@@ -96,7 +96,7 @@ namespace LazyCoder.Core.Editor
             }
         }
 
-        [MenuItem("LFramework/Game/Reload scene _F5", false)]
+        [MenuItem("LazyCoder/Game/Reload scene _F5", false)]
         private static void ReloadScene()
         {
             if (!Application.isPlaying)
@@ -108,7 +108,7 @@ namespace LazyCoder.Core.Editor
 
         #endregion
 
-        [MenuItem("LFramework/Capture Screenshot %_print", false)]
+        [MenuItem("LazyCoder/Capture Screenshot %_print", false)]
         private static void CaptureScreenshot()
         {
             var currentTime = DateTime.Now;
