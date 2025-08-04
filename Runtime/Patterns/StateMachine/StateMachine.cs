@@ -235,14 +235,14 @@ namespace LazyCoder.Core
 
             currentState.onStart?.Invoke();
 
-            EventStateChanged?.Invoke();
+            EventStateChanged?.Invoke(this);
         }
 
         #endregion
 
         #region Callback Events
 
-        public event Action EventStateChanged;
+        public event Action<StateMachine<TLabel>> EventStateChanged;
 
         #endregion
     }
