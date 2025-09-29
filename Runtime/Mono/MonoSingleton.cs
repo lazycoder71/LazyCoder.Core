@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
 
 namespace LazyCoder.Core
 {
@@ -14,14 +15,13 @@ namespace LazyCoder.Core
     [DefaultExecutionOrder(-50)]
     public abstract class MonoSingleton<T> : MonoBase where T : MonoSingleton<T>
     {
-        // Use a more descriptive property name
+        /// <summary>
+        /// Should this singleton persist across scene loads?
+        /// </summary>
         protected abstract bool PersistAcrossScenes { get; }
 
-        // Use a readonly object for thread safety
-        private static readonly object s_lock = new object();
+        private static readonly object Lock = new object();
         private static T s_instance;
-        private static bool s_applicationIsQuitting = false;
-        private static bool s_isDestroyed = false;
 
         /// <summary>
         /// Returns the singleton instance. If it doesn't exist, tries to find one in the scene.
@@ -31,24 +31,21 @@ namespace LazyCoder.Core
         {
             get
             {
-                if (s_applicationIsQuitting || s_isDestroyed)
+                if (IsDestroyed)
                 {
                     LDebug.LogError<T>(
                         $"{typeof(T)} is already destroyed. " +
-                        $"Please check {nameof(HasInstance)} or {nameof(IsDestroyed)} before accessing instance in the destructor.");
+                        $"Check {nameof(HasInstance)} or {nameof(IsDestroyed)} before accessing instance in the destructor.");
                     return null;
                 }
 
-                // Thread-safe check
-                if (s_instance == null)
+                if (s_instance)
+                    return s_instance;
+
+                lock (Lock)
                 {
-                    lock (s_lock)
-                    {
-                        if (s_instance == null)
-                        {
-                            s_instance = FindFirstObjectByType<T>(); // Include inactive objects
-                        }
-                    }
+                    if (!s_instance)
+                        s_instance = FindFirstObjectByType<T>();
                 }
 
                 return s_instance;
@@ -62,36 +59,29 @@ namespace LazyCoder.Core
         {
             get
             {
-                if (s_applicationIsQuitting)
-                {
-                    LDebug.LogWarning<T>($"Attempting to access {typeof(T)} after application quit.");
-                    return null;
-                }
-
-                if (Instance == null)
+                if (!Instance)
                 {
                     CreateInstance();
                 }
-
                 return s_instance;
             }
         }
 
         /// <summary>
-        /// Returns `true` if Singleton Instance exists.
+        /// Returns true if Singleton Instance exists.
         /// </summary>
-        public static bool HasInstance => s_instance != null && !s_isDestroyed;
+        public static bool HasInstance => s_instance != null && !IsDestroyed;
 
         /// <summary>
-        /// Returns `true` if the singleton was explicitly destroyed or destroyed during application quit.
+        /// Returns true if the singleton was explicitly destroyed or destroyed during application quit.
         /// </summary>
-        public static bool IsDestroyed => s_isDestroyed;
+        public static bool IsDestroyed { get; private set; }
 
         /// <summary>
         /// Creates a new instance of the singleton if one doesn't already exist.
         /// </summary>
         /// <returns>The singleton instance</returns>
-        public static T CreateInstance()
+        private static T CreateInstance()
         {
             if (HasInstance)
             {
@@ -99,14 +89,14 @@ namespace LazyCoder.Core
                 return s_instance;
             }
 
-            lock (s_lock)
+            lock (Lock)
             {
-                if (s_instance == null && !s_applicationIsQuitting)
+                if (s_instance == null && !IsDestroyed)
                 {
-                    // Create a new GameObject with the type name
                     var gameObject = new GameObject($"[Singleton] {typeof(T).Name}");
-                    s_instance = gameObject.AddComponent<T>();
-                    s_isDestroyed = false;
+                    var created = gameObject.AddComponent<T>();
+                    Interlocked.CompareExchange(ref s_instance, created, null);
+                    IsDestroyed = false;
 
                     LDebug.Log<T>($"Created singleton instance of {typeof(T).Name}");
                 }
@@ -115,82 +105,35 @@ namespace LazyCoder.Core
             return s_instance;
         }
 
-        /// <summary>
-        /// Explicitly destroys the singleton instance if it exists.
-        /// </summary>
-        public static void DestroyInstance()
-        {
-            if (s_instance != null && !s_isDestroyed)
-            {
-                if (Application.isPlaying)
-                {
-                    Destroy(s_instance.gameObject);
-                }
-                else
-                {
-                    DestroyImmediate(s_instance.gameObject);
-                }
-
-                s_instance = null;
-                s_isDestroyed = true;
-            }
-        }
-
         #region MonoBehaviour
 
         protected virtual void Awake()
         {
             if (s_instance == null)
             {
-                s_isDestroyed = false;
+                IsDestroyed = false;
                 s_instance = this as T;
 
                 if (PersistAcrossScenes)
                 {
-                    DontDestroyOnLoad(gameObject);
+                    DontDestroyOnLoad(GameObjectCached);
                     LDebug.Log<T>($"Singleton {typeof(T).Name} marked as DontDestroyOnLoad");
                 }
-
-                OnSingletonAwake();
             }
             else if (s_instance != this)
             {
                 LDebug.Log<T>($"Duplicate singleton {typeof(T).Name} detected. Destroying duplicate.");
-                Destroy(gameObject);
+                Destroy(GameObjectCached);
             }
         }
-
-        /// <summary>
-        /// Called when the singleton instance is first initialized.
-        /// Override this instead of Awake for singleton-specific initialization.
-        /// </summary>
-        protected virtual void OnSingletonAwake() { }
 
         protected virtual void OnDestroy()
         {
-            if (s_instance == this)
-            {
-                s_instance = null;
-                s_isDestroyed = true;
-                OnSingletonDestroyed();
-            }
-        }
+            if (s_instance != this)
+                return;
 
-        /// <summary>
-        /// Called when the singleton instance is being destroyed.
-        /// Override this instead of OnDestroy for singleton-specific cleanup.
-        /// </summary>
-        protected virtual void OnSingletonDestroyed() { }
-
-        protected virtual void OnApplicationQuit()
-        {
-            s_applicationIsQuitting = true;
-
-            if (s_instance == this)
-            {
-                s_instance = null;
-                s_isDestroyed = true;
-            }
+            s_instance = null;
+            IsDestroyed = true;
         }
 
         #endregion

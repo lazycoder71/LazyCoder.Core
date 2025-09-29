@@ -27,6 +27,7 @@ namespace LazyCoder.Core
         public static float ToAngle(this Vector2 v)
         {
             float angle = Mathf.Atan2(v.x, v.y) * Mathf.Rad2Deg;
+            
             if (angle < 0f)
                 angle += 360f;
 

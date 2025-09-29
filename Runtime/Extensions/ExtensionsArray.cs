@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using UnityEngine;
 
 namespace LazyCoder.Core
@@ -18,13 +17,11 @@ namespace LazyCoder.Core
                 {
                     provider.GetBytes(box);
                 }
-                while (!(box[0] < n * (Byte.MaxValue / n)));
+                while (!(box[0] < n * (byte.MaxValue / n)));
 
                 int k = (box[0] % n);
                 n--;
-                T value = arr[k];
-                arr[k] = arr[n];
-                arr[n] = value;
+                (arr[k], arr[n]) = (arr[n], arr[k]);
             }
         }
 
@@ -35,7 +32,7 @@ namespace LazyCoder.Core
 
         public static T Last<T>(this T[] array)
         {
-            return array[array.Length - 1];
+            return array[^1];
         }
 
         public static T GetClamp<T>(this T[] array, int index)
@@ -58,9 +55,7 @@ namespace LazyCoder.Core
 
         public static void Swap<T>(this T[] data, int index0, int index1)
         {
-            T t = data[index0];
-            data[index0] = data[index1];
-            data[index1] = t;
+            (data[index0], data[index1]) = (data[index1], data[index0]);
         }
 
         public static T GetLoop<T>(this T[] array, int index)

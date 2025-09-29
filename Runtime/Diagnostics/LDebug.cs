@@ -11,10 +11,12 @@ namespace LazyCoder.Core
     /// </summary>
     public static class LDebug
     {
-        private static readonly float s_headerColorStepStart = 0.5f;
-        private static readonly float s_headerColorStep = 0.075f;
-        private static int s_headerColorCount = 0;
-        private static Dictionary<string, Color> s_headerColorDict = new Dictionary<string, Color>();
+        private const float HeaderColorStepStart = 0.5f;
+        private const float HeaderColorStep = 0.075f;
+        
+        private static readonly Dictionary<string, Color> HeaderColorDict = new();
+
+        private static int _headerColorCount = 0;
 
         #region Functions -> Public
 
@@ -78,10 +80,7 @@ namespace LazyCoder.Core
 
         private static object GetLog(object message, Color? color)
         {
-            if (color.HasValue)
-                return $"<color=#{ColorUtility.ToHtmlStringRGB(color.Value)}>{message}</color>";
-            else
-                return message;
+            return color.HasValue ? $"<color=#{ColorUtility.ToHtmlStringRGB(color.Value)}>{message}</color>" : message;
         }
 
         private static object GetLog(object header, object message, Color? headerColor)
@@ -94,18 +93,19 @@ namespace LazyCoder.Core
             }
             else
             {
-                if (s_headerColorDict.ContainsKey(header.ToString()))
+                if (HeaderColorDict.ContainsKey(header.ToString()))
                 {
-                    color = s_headerColorDict[header.ToString()];
+                    color = HeaderColorDict[header.ToString()];
                 }
                 else
                 {
                     // Lerp rainbow color
-                    color = Color.HSVToRGB(Mathf.PingPong(s_headerColorStepStart + s_headerColorCount * s_headerColorStep, 1), 1, 1);
+                    color = Color.HSVToRGB(
+                        Mathf.PingPong(HeaderColorStepStart + _headerColorCount * HeaderColorStep, 1), 1, 1);
 
-                    s_headerColorDict.Add(header.ToString(), color);
+                    HeaderColorDict.Add(header.ToString(), color);
 
-                    s_headerColorCount++;
+                    _headerColorCount++;
                 }
             }
 

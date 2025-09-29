@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -5,9 +6,9 @@ namespace LazyCoder.Core.Editor
 {
     public static class EditorFileBrowser
     {
-        private static bool IsMacOS { get { return SystemInfo.operatingSystem.IndexOf("Mac OS") != -1; } }
+        private static bool IsMacOS => SystemInfo.operatingSystem.IndexOf("Mac OS", StringComparison.Ordinal) != -1;
 
-        private static bool IsWinOS { get { return SystemInfo.operatingSystem.IndexOf("Windows") != -1; } }
+        private static bool IsWinOS => SystemInfo.operatingSystem.IndexOf("Windows", StringComparison.Ordinal) != -1;
 
         private static void OpenInMac(string path)
         {

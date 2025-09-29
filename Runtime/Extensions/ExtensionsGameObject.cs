@@ -2,7 +2,7 @@
 
 namespace LazyCoder.Core
 {
-    public static partial class ExtensionsGameObject
+    public static class ExtensionsGameObject
     {
         public static void RemoveComponent<T>(this GameObject gameObject) where T : Component
         {
@@ -104,7 +104,8 @@ namespace LazyCoder.Core
             return Object.Instantiate(gameObject, position, rotation.GetValueOrDefault(Quaternion.identity));
         }
 
-        public static T Create<T>(this T gameObject, Vector3 position, Quaternion rotation, Transform parent) where T : Object
+        public static T Create<T>(this T gameObject, Vector3 position, Quaternion rotation, Transform parent)
+            where T : Object
         {
             return Object.Instantiate(gameObject, position, rotation, parent);
         }

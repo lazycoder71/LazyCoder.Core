@@ -32,17 +32,13 @@ namespace LazyCoder.Core
             {
                 n--;
                 int k = random.Next(n + 1);
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
+                (list[k], list[n]) = (list[n], list[k]);
             }
         }
 
         public static void Swap<T>(this List<T> list, int indexA, int indexB)
         {
-            T temp = list[indexA];
-            list[indexA] = list[indexB];
-            list[indexB] = temp;
+            (list[indexA], list[indexB]) = (list[indexB], list[indexA]);
         }
 
         public static bool IsOutOfBounds<T>(this IList<T> list, int index)
@@ -50,18 +46,12 @@ namespace LazyCoder.Core
             if (list == null)
                 return true;
 
-            if (index < 0 || index >= list.Count)
-                return true;
-
-            return false;
+            return index < 0 || index >= list.Count;
         }
 
         public static bool IsNullOrEmpty<T>(this IList<T> list)
         {
-            if (list == null || list.Count == 0)
-                return true;
-
-            return false;
+            return list == null || list.Count == 0;
         }
 
         public static List<T> Clone<T>(this List<T> list) where T : ICloneable
@@ -71,7 +61,7 @@ namespace LazyCoder.Core
 
         public static T Last<T>(this List<T> list)
         {
-            return list[list.Count - 1];
+            return list[^1];
         }
 
         public static T First<T>(this List<T> list)

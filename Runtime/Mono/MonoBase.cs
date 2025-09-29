@@ -14,7 +14,7 @@ namespace LazyCoder.Core
         {
             get
             {
-                if (_transform == null)
+                if (!_transform)
                     _transform = transform;
 
                 return _transform;
@@ -25,7 +25,7 @@ namespace LazyCoder.Core
         {
             get
             {
-                if (_gameObject == null)
+                if (!_gameObject)
                     _gameObject = gameObject;
 
                 return _gameObject;
