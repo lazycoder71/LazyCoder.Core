@@ -1,7 +1,7 @@
 ﻿namespace LazyCoder.Core
 {
     /// <summary>
-    /// Interface represents and even distributed via <see cref="IEventBus"/>
+    /// Interface represents an event in the EventBus pattern.
     /// </summary>
     public interface IEvent { }
 }

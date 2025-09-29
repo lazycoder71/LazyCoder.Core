@@ -39,16 +39,16 @@ namespace LazyCoder.Core
     /// but strings or int are other possibilities.</typeparam>
     public class StateMachine<TLabel>
     {
-        #region  Types
+        #region Types
 
         private class State
         {
             #region Public Fields
 
-            public readonly TLabel label;
-            public readonly Action onStart;
-            public readonly Action onStop;
-            public readonly Action onUpdate;
+            public readonly TLabel Label;
+            public readonly Action OnStart;
+            public readonly Action OnStop;
+            public readonly Action OnUpdate;
 
             #endregion
 
@@ -56,10 +56,10 @@ namespace LazyCoder.Core
 
             public State(TLabel label, Action onStart, Action onUpdate, Action onStop)
             {
-                this.onStart = onStart;
-                this.onUpdate = onUpdate;
-                this.onStop = onStop;
-                this.label = label;
+                this.OnStart = onStart;
+                this.OnUpdate = onUpdate;
+                this.OnStop = onStop;
+                this.Label = label;
             }
 
             #endregion
@@ -69,27 +69,24 @@ namespace LazyCoder.Core
 
         #region Private Fields
 
-        private readonly Dictionary<TLabel, State> stateDictionary;
-        private State currentState;
-        private State previousState;
+        private readonly Dictionary<TLabel, State> _stateDictionary;
+        private State _currentState;
+        private State _previousState;
 
         #endregion
 
-        #region  Properties
+        #region Properties
 
-        public TLabel PreviousState
-        {
-            get { return previousState == null ? currentState.label : previousState.label; }
-        }
+        public TLabel PreviousState => _previousState == null ? _currentState.Label : _previousState.Label;
 
         /// <summary>
         /// Returns the label of the current state.
         /// </summary>
         public TLabel CurrentState
         {
-            get { return currentState.label; }
+            get => _currentState.Label;
 
-            set { ChangeState(value); }
+            set => ChangeState(value);
         }
 
         #endregion
@@ -101,7 +98,7 @@ namespace LazyCoder.Core
         /// </summary>
         public StateMachine()
         {
-            stateDictionary = new Dictionary<TLabel, State>();
+            _stateDictionary = new Dictionary<TLabel, State>();
         }
 
         #endregion
@@ -111,11 +108,11 @@ namespace LazyCoder.Core
         /// <summary>
         /// This method should be called every frame.
         /// </summary>
-        public void Update()
+        private void Update()
         {
-            if (currentState != null && currentState.onUpdate != null)
+            if (_currentState != null && _currentState.OnUpdate != null)
             {
-                currentState.onUpdate();
+                _currentState.OnUpdate();
             }
         }
 
@@ -127,7 +124,8 @@ namespace LazyCoder.Core
         {
             stateMachine.Init();
 
-            stateDictionary[label] = new State(label, stateMachine.OnStart, stateMachine.OnUpdate, stateMachine.OnStop);
+            _stateDictionary[label] =
+                new State(label, stateMachine.OnStart, stateMachine.OnUpdate, stateMachine.OnStop);
         }
 
         /// <summary>
@@ -143,50 +141,13 @@ namespace LazyCoder.Core
         /// <param name="onStop">The action performed when the state machine is left.</param>
         public void AddState(TLabel label, Action onStart, Action onUpdate, Action onStop)
         {
-            stateDictionary[label] = new State(label, onStart, onUpdate, onStop);
+            _stateDictionary[label] = new State(label, onStart, onUpdate, onStop);
         }
 
         /// <summary>
-        /// Adds a state, and the delegates that should run 
-        /// when the state starts, 
-        /// and when the state machine is updated.
-        /// 
-        /// Any delegate can be null, and wont be executed.
-        /// </summary>
-        /// <param name="label">The name of the state to add.</param>
-        /// <param name="onStart">The action performed when the state is entered.</param>
-        /// <param name="onUpdate">The action performed when the state machine is updated in the given state.</param>
-        public void AddState(TLabel label, Action onStart, Action onUpdate)
-        {
-            AddState(label, onStart, onUpdate, null);
-        }
-
-        /// <summary>
-        /// Adds a state, and the delegates that should run 
-        /// when the state starts.
-        /// 
-        /// Any delegate can be null, and wont be executed.
-        /// </summary>
-        /// <param name="label">The name of the state to add.</param>
-        /// <param name="onStart">The action performed when the state is entered.</param>
-        public void AddState(TLabel label, Action onStart)
-        {
-            AddState(label, onStart, null);
-        }
-
-        /// <summary>
-        /// Adds a state.
-        /// </summary>
-        /// <param name="label">The name of the state to add.</param>
-        public void AddState(TLabel label)
-        {
-            AddState(label, null, null);
-        }
-
-        /// <summary>
-        /// Adds a sub state machine for the given state.
+        /// Adds a sub-state machine for the given state.
         ///
-        /// The sub state machine need not be updated, as long as this state machine
+        /// The sub-state machine need not be updated, as long as this state machine
         /// is being updated.
         /// </summary>
         /// <typeparam name="TSubStateLabel">The type of the sub-machine.</typeparam>
@@ -199,7 +160,7 @@ namespace LazyCoder.Core
             AddState(
                 label,
                 () => subMachine.ChangeState(subMachineStartState),
-                subMachine.Update);
+                subMachine.Update, null);
         }
 
         /// <summary>
@@ -224,16 +185,16 @@ namespace LazyCoder.Core
         /// </summary>
         private void ChangeState(TLabel newState)
         {
-            previousState = currentState;
+            _previousState = _currentState;
 
-            if (currentState != null && currentState.onStop != null)
+            if (_currentState != null && _currentState.OnStop != null)
             {
-                currentState.onStop();
+                _currentState.OnStop();
             }
 
-            currentState = stateDictionary[newState];
+            _currentState = _stateDictionary[newState];
 
-            currentState.onStart?.Invoke();
+            _currentState.OnStart?.Invoke();
 
             EventStateChanged?.Invoke(this);
         }

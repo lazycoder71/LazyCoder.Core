@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace LazyCoder.Core
 {
-    [RequireComponent(typeof(TextMeshProUGUI))]
+    [RequireComponent(typeof(TMP_Text))]
     public class GuiText : MonoBase
     {
-        private TextMeshProUGUI _text;
+        private TMP_Text _text;
 
-        public TextMeshProUGUI Text
+        public TMP_Text Text
         {
             get
             {
                 if (_text == null)
-                    _text = GetComponent<TextMeshProUGUI>();
+                    _text = GetComponent<TMP_Text>();
 
                 return _text;
             }

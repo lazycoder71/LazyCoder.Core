@@ -12,7 +12,7 @@ namespace LazyCoder.Core
     /// <typeparam name="T">Event Type.</typeparam>
     public static class EventBus<T> where T : IEvent
     {
-        static Action<T> s_Action = delegate { };
+        private static Action<T> s_action = delegate { };
 
         /// <summary>
         /// Subscribes listener to a certain event type.
@@ -20,7 +20,7 @@ namespace LazyCoder.Core
         /// <param name="listener">Listener instance.</param>
         public static void Subscribe(Action<T> listener)
         {
-            s_Action += listener;
+            s_action += listener;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace LazyCoder.Core
         /// <param name="listener">Listener instance.</param>
         public static void Unsubscribe(Action<T> listener)
         {
-            s_Action -= listener;
+            s_action -= listener;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace LazyCoder.Core
         /// <param name="event">An event instance to post.</param>
         public static void Post(T @event)
         {
-            s_Action.Invoke(@event);
+            s_action.Invoke(@event);
         }
     }
 }
