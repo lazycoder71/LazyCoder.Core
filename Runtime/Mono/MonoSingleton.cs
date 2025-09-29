@@ -63,6 +63,7 @@ namespace LazyCoder.Core
                 {
                     CreateInstance();
                 }
+
                 return s_instance;
             }
         }

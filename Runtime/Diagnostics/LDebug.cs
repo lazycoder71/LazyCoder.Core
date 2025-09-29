@@ -6,17 +6,17 @@ using Debug = UnityEngine.Debug;
 namespace LazyCoder.Core
 {
     /// <summary>
-    /// Class that contains methods useful for debugging.
-    /// All methods are only compiled if the DEVELOPMENT_BUILD symbol or UNITY_EDITOR is defined.
+    /// Provides utility methods for logging debug messages with optional color and headers.
+    /// Only compiled if DEVELOPMENT_BUILD or UNITY_EDITOR is defined.
     /// </summary>
     public static class LDebug
     {
         private const float HeaderColorStepStart = 0.5f;
         private const float HeaderColorStep = 0.075f;
-        
+
         private static readonly Dictionary<string, Color> HeaderColorDict = new();
 
-        private static int _headerColorCount = 0;
+        private static int s_headerColorCount = 0;
 
         #region Functions -> Public
 
@@ -101,11 +101,11 @@ namespace LazyCoder.Core
                 {
                     // Lerp rainbow color
                     color = Color.HSVToRGB(
-                        Mathf.PingPong(HeaderColorStepStart + _headerColorCount * HeaderColorStep, 1), 1, 1);
+                        Mathf.PingPong(HeaderColorStepStart + s_headerColorCount * HeaderColorStep, 1), 1, 1);
 
                     HeaderColorDict.Add(header.ToString(), color);
 
-                    _headerColorCount++;
+                    s_headerColorCount++;
                 }
             }
 

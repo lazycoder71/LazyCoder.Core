@@ -57,13 +57,13 @@ namespace LazyCoder.Core
         public event Action<Scene, Scene> EventActiveSceneChanged;
 
         private void Update() => EventUpdate?.Invoke();
-        
+
         private void LateUpdate() => EventLateUpdate?.Invoke();
-        
+
         private void FixedUpdate() => EventFixedUpdate?.Invoke();
-        
+
         private void OnApplicationPause(bool pauseStatus) => EventApplicationPause?.Invoke(pauseStatus);
-        
+
         private void OnApplicationFocus(bool hasFocus) => EventApplicationFocus?.Invoke(hasFocus);
 
         protected override void Awake()
@@ -80,10 +80,8 @@ namespace LazyCoder.Core
             SceneManager.activeSceneChanged -= SceneManager_ActiveSceneChanged;
         }
 
-        protected override void OnApplicationQuit()
+        private void OnApplicationQuit()
         {
-            base.OnApplicationQuit();
-
             EventApplicationQuit?.Invoke();
         }
 

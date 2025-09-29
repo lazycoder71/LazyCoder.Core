@@ -3,32 +3,42 @@
 namespace LazyCoder.Core
 {
     /// <summary>
-    /// Basic implementation of the <see cref="IEventBus"/>.
+    /// This is the simplest an fastest implementation for the event bus pattern.
+    /// Since this is static bus DO NOT USE it when you are making a package,
+    /// Since it may conflict with user project.
+    ///
+    /// It only makes sense to use it inside the project you maintain and own.
     /// </summary>
-    public sealed class EventBus : IEventBus
+    /// <typeparam name="T">Event Type.</typeparam>
+    public static class EventBus<T> where T : IEvent
     {
-        /// <inheritdoc>
-        ///     <cref>IEventBus.Subscribe</cref>
-        /// </inheritdoc>
-        public void Subscribe<T>(Action<T> listener) where T : IEvent
+        static Action<T> s_Action = delegate { };
+
+        /// <summary>
+        /// Subscribes listener to a certain event type.
+        /// </summary>
+        /// <param name="listener">Listener instance.</param>
+        public static void Subscribe(Action<T> listener)
         {
-            EventBusDispatcher<T>.Subscribe(this, listener);
+            s_Action += listener;
         }
 
-        /// <inheritdoc>
-        ///     <cref>IEventBus.Unsubscribe</cref>
-        /// </inheritdoc>
-        public void Unsubscribe<T>(Action<T> listener) where T : IEvent
+        /// <summary>
+        /// Unsubscribes listener to a certain event type.
+        /// </summary>
+        /// <param name="listener">Listener instance.</param>
+        public static void Unsubscribe(Action<T> listener)
         {
-            EventBusDispatcher<T>.Unsubscribe(this, listener);
+            s_Action -= listener;
         }
 
-        /// <inheritdoc>
-        ///     <cref>IEventBus.Post</cref>
-        /// </inheritdoc>
-        public void Post<T>(T @event) where T : IEvent
+        /// <summary>
+        /// Posts and event.
+        /// </summary>
+        /// <param name="event">An event instance to post.</param>
+        public static void Post(T @event)
         {
-            EventBusDispatcher<T>.Dispatch(this, @event);
+            s_Action.Invoke(@event);
         }
     }
 }
