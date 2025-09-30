@@ -103,12 +103,12 @@ namespace LazyCoder.Core
 
         #endregion
 
-        #region Unity Callbacks
+        #region Public Methods
 
         /// <summary>
         /// This method should be called every frame.
         /// </summary>
-        private void Update()
+        public void Update()
         {
             if (_currentState != null && _currentState.OnUpdate != null)
             {
@@ -116,16 +116,16 @@ namespace LazyCoder.Core
             }
         }
 
-        #endregion
-
-        #region Public Methods
-
+        public void AddState(TLabel label)
+        {
+            _stateDictionary[label] = new State(label, null, null, null);
+        }
+        
         public void AddState(TLabel label, IStateMachine stateMachine)
         {
             stateMachine.Init();
 
-            _stateDictionary[label] =
-                new State(label, stateMachine.OnStart, stateMachine.OnUpdate, stateMachine.OnStop);
+            _stateDictionary[label] = new State(label, stateMachine.OnStart, stateMachine.OnUpdate, stateMachine.OnStop);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace LazyCoder.Core
         /// <param name="onStart">The action performed when the state is entered.</param>
         /// <param name="onUpdate">The action performed when the state machine is updated in the given state.</param>
         /// <param name="onStop">The action performed when the state machine is left.</param>
-        public void AddState(TLabel label, Action onStart, Action onUpdate, Action onStop)
+        public void AddState(TLabel label,  Action onStart ,  Action onUpdate ,  Action onStop)
         {
             _stateDictionary[label] = new State(label, onStart, onUpdate, onStop);
         }
@@ -154,13 +154,9 @@ namespace LazyCoder.Core
         /// <param name="label">The name of the state to add.</param>
         /// <param name="subMachine">The sub-machine that will run during the given state.</param>
         /// <param name="subMachineStartState">The starting state of the sub-machine.</param>
-        public void AddState<TSubStateLabel>(TLabel label, StateMachine<TSubStateLabel> subMachine,
-            TSubStateLabel subMachineStartState)
+        public void AddState<TSubStateLabel>(TLabel label, StateMachine<TSubStateLabel> subMachine,TSubStateLabel subMachineStartState)
         {
-            AddState(
-                label,
-                () => subMachine.ChangeState(subMachineStartState),
-                subMachine.Update, null);
+            AddState(label,() => subMachine.ChangeState(subMachineStartState),subMachine.Update, null);
         }
 
         /// <summary>
