@@ -43,9 +43,6 @@ namespace LazyCoder.Core
 
         protected virtual void OnDisable()
         {
-            if (MonoCallback.IsDestroyed)
-                return;
-
             UnregisterTick();
         }
 
@@ -58,13 +55,16 @@ namespace LazyCoder.Core
 
         private void RegisterTick()
         {
-            MonoCallback.Instance.EventUpdate += Tick;
-            MonoCallback.Instance.EventLateUpdate += LateTick;
-            MonoCallback.Instance.EventFixedUpdate += FixedTick;
+            MonoCallback.SafeInstance.EventUpdate += Tick;
+            MonoCallback.SafeInstance.EventLateUpdate += LateTick;
+            MonoCallback.SafeInstance.EventFixedUpdate += FixedTick;
         }
 
         private void UnregisterTick()
         {
+            if (MonoCallback.IsDestroyed)
+                return;
+            
             MonoCallback.Instance.EventUpdate -= Tick;
             MonoCallback.Instance.EventLateUpdate -= LateTick;
             MonoCallback.Instance.EventFixedUpdate -= FixedTick;
