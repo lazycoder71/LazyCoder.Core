@@ -11,9 +11,9 @@ namespace LazyCoder.Core
         [Title("Config")]
         [SerializeField] private float _delay = 0f;
         [SerializeField] private bool _ignoreTimeScale = false;
-        [SerializeField] private bool _deactiveOnly = false;
+        [SerializeField] private bool _deactivateOnly = false;
 
-        private CancelToken _cancelToken = new CancelToken();
+        private readonly CancelToken _cancelToken = new CancelToken();
 
         public event Action<GameObject> EventDestruct;
 
@@ -25,7 +25,7 @@ namespace LazyCoder.Core
 
             _cancelToken.Cancel();
 
-            DestructAsyn(_cancelToken.Token).Forget();
+            DestructAsync(_cancelToken.Token).Forget();
         }
 
         protected override void OnDisable()
@@ -37,11 +37,11 @@ namespace LazyCoder.Core
 
         #endregion
 
-        private async UniTaskVoid DestructAsyn(CancellationToken cancellationToken)
+        private async UniTaskVoid DestructAsync(CancellationToken cancellationToken)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(_delay), _ignoreTimeScale, cancellationToken: cancellationToken);
 
-            if (_deactiveOnly)
+            if (_deactivateOnly)
                 GameObjectCached.SetActive(false);
             else
                 Destroy(GameObjectCached);
