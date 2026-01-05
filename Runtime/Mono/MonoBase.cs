@@ -43,6 +43,9 @@ namespace LazyCoder.Core
 
         protected virtual void OnDisable()
         {
+            if (!_isStarted)
+                return;
+            
             UnregisterTick();
         }
 

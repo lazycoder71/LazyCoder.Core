@@ -1,7 +1,9 @@
 {
     "name": "LazyCoder.Core.Editor",
     "rootNamespace": "LazyCoder.Core.Editor",
-    "references": [],
+    "references": [
+        "LazyCoder.Core"
+    ],
     "includePlatforms": [
         "Editor"
     ],

