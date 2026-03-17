@@ -74,6 +74,12 @@ namespace LazyCoder.Core
             Debug.LogError(GetLog(typeof(T), message, headerColor));
         }
 
+        [Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
+        public static void LogException(System.Exception exception, Object context = null)
+        {
+            Debug.LogException(exception, context);
+        }
+
         #endregion
 
         #region Functions -> Private
