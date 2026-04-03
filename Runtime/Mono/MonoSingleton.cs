@@ -34,7 +34,7 @@ namespace LazyCoder.Core
             {
                 if (IsDestroyed)
                 {
-                    LDebug.LogError<T>(
+                    LzDebug.LogError<T>(
                         $"{typeof(T)} is already destroyed. " +
                         $"Check {nameof(HasInstance)} or {nameof(IsDestroyed)} before accessing instance in the destructor.");
                     return null;
@@ -87,7 +87,7 @@ namespace LazyCoder.Core
         {
             if (HasInstance)
             {
-                LDebug.LogWarning<T>($"Attempting to create {typeof(T).Name} instance, but one already exists.");
+                LzDebug.LogWarning<T>($"Attempting to create {typeof(T).Name} instance, but one already exists.");
                 return;
             }
 
@@ -100,7 +100,7 @@ namespace LazyCoder.Core
                     Interlocked.CompareExchange(ref _instance, created, null);
                     IsDestroyed = false;
 
-                    LDebug.Log<T>($"Created singleton instance of {typeof(T).Name}");
+                    LzDebug.Log<T>($"Created singleton instance of {typeof(T).Name}");
                 }
             }
         }
@@ -117,12 +117,12 @@ namespace LazyCoder.Core
                 if (PersistAcrossScenes)
                 {
                     DontDestroyOnLoad(GameObjectCached);
-                    LDebug.Log<T>($"Singleton {typeof(T).Name} marked as DontDestroyOnLoad");
+                    LzDebug.Log<T>($"Singleton {typeof(T).Name} marked as DontDestroyOnLoad");
                 }
             }
             else if (_instance != this)
             {
-                LDebug.Log<T>($"Duplicate singleton {typeof(T).Name} detected. Destroying duplicate.");
+                LzDebug.Log<T>($"Duplicate singleton {typeof(T).Name} detected. Destroying duplicate.");
                 Destroy(GameObjectCached);
             }
         }

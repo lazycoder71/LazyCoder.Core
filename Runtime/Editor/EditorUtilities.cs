@@ -16,7 +16,7 @@ namespace LazyCoder.Core.Editor
         {
             PlayerPrefs.DeleteAll();
 
-            LDebug.Log<EditorUtility>("PlayerPrefs cleared!");
+            LzDebug.Log<EditorUtility>("PlayerPrefs cleared!");
         }
 
         [MenuItem("LazyCoder/Data/Clear Game Data", false)]
@@ -34,7 +34,7 @@ namespace LazyCoder.Core.Editor
                 dir.Delete(true);
             }
 
-            LDebug.Log<EditorUtility>("Game data cleared!");
+            LzDebug.Log<EditorUtility>("Game data cleared!");
         }
 
         [MenuItem("LazyCoder/Data/Clear Caching", false)]
@@ -42,7 +42,7 @@ namespace LazyCoder.Core.Editor
         {
             Caching.ClearCache();
 
-            LDebug.Log<EditorUtility>("Caching cleared!");
+            LzDebug.Log<EditorUtility>("Caching cleared!");
         }
 
         [MenuItem("LazyCoder/Data/Clear All", false)]

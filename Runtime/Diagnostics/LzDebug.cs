@@ -9,10 +9,20 @@ namespace LazyCoder.Core
     /// Provides utility methods for logging debug messages with optional color and headers.
     /// Only compiled if DEVELOPMENT_BUILD or UNITY_EDITOR is defined.
     /// </summary>
-    public static class LDebug
+    public static class LzDebug
     {
-        private const float HeaderColorStepStart = 0.5f;
-        private const float HeaderColorStep = 0.075f;
+        private static readonly Color[] HeaderColors =
+        {
+            Color.softRed,
+            Color.orange,
+            Color.yellowNice,
+            Color.limeGreen,
+            Color.deepSkyBlue,
+            Color.mediumPurple,
+            Color.hotPink,
+            Color.cyan,
+            Color.white,
+        };
 
         private static readonly Dictionary<string, Color> HeaderColorDict = new();
 
@@ -92,6 +102,7 @@ namespace LazyCoder.Core
         private static object GetLog(object header, object message, Color? headerColor)
         {
             Color color;
+            var headerKey = header?.ToString() ?? "null";
 
             if (headerColor.HasValue)
             {
@@ -99,17 +110,16 @@ namespace LazyCoder.Core
             }
             else
             {
-                if (HeaderColorDict.ContainsKey(header.ToString()))
+                if (HeaderColorDict.TryGetValue(headerKey, out var cachedColor))
                 {
-                    color = HeaderColorDict[header.ToString()];
+                    color = cachedColor;
                 }
                 else
                 {
-                    // Lerp rainbow color
-                    color = Color.HSVToRGB(
-                        Mathf.PingPong(HeaderColorStepStart + _headerColorCount * HeaderColorStep, 1), 1, 1);
+                    // Cycle through a deterministic rainbow palette for new headers.
+                    color = HeaderColors[_headerColorCount % HeaderColors.Length];
 
-                    HeaderColorDict.Add(header.ToString(), color);
+                    HeaderColorDict.Add(headerKey, color);
 
                     _headerColorCount++;
                 }
