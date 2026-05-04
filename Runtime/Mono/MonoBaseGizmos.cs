@@ -1,9 +1,11 @@
+#if LAZYCODER_ALINE
+
 using UnityEngine;
 using Drawing;
 
 namespace LazyCoder.Core
 {
-    public class MonoBase : MonoBehaviour
+    public class MonoBaseGizmos : MonoBehaviourGizmos
     {
         private GameObject _gameObject;
 
@@ -87,3 +89,5 @@ namespace LazyCoder.Core
         }
     }
 }
+
+#endif

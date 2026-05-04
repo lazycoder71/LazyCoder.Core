@@ -6,7 +6,7 @@
         "Unity.Addressables",
         "Unity.ResourceManager",
         "UniTask",
-        "Vertx.Debugging.Runtime"
+        "ALINE"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -15,6 +15,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.arongranberg.aline",
+            "expression": "",
+            "define": "LAZYCODER_ALINE"
+        }
+    ],
     "noEngineReferences": false
 }

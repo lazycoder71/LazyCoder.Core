@@ -1,8 +1,8 @@
 {
   "name": "lazycoder.unity.core",
   "displayName": "LazyCoder Core",
-  "version": "1.1.5",
-  "unity": "6000.3",
+  "version": "1.1.6",
+  "unity": "6000.4",
   "description": "Collection of utility methods, design patterns, and extensions for Unity.",
   "keywords": [
     "pattern",
@@ -20,7 +20,7 @@
   "license": "MIT",
   "author": {
     "name": "Lam Nguyen",
-    "email": "lamnd.bounce@gmail.com",
-    "url": "https://www.facebook.com/theycallmelam"
+    "url": "https://www.facebook.com/theycallmelam",
+    "email": "lamnd.bounce@gmail.com"
   }
 }
